@@ -25,6 +25,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   const values = frame.fields.find(field => field.type === FieldType.number);
 
   // Use the `category` field as categories.
+  // TODO: Let the user choose the field to use for categories.
   const category = frame.fields.find(field => field.name === 'category');
 
   const palette = getThemePalette(theme);
