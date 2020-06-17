@@ -18,28 +18,24 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const frame = data.series[0];
 
-  // Use the first string field as names.
-  const names = frame.fields.find(field => field.type === FieldType.string);
+  const textField = frame.fields.find(field => field.name === options.textField);
+  const sizeField = frame.fields.find(field => field.name === options.sizeField);
+  const colorField = frame.fields.find(field => field.name === options.colorField);
 
-  // Use the first string field as values.
-  const values = frame.fields.find(field => field.type === FieldType.number);
-
-  // Use the `category` field as categories.
-  // TODO: Let the user choose the field to use for categories.
-  const category = frame.fields.find(field => field.name === 'category');
+  const isGrouped = colorField?.type !== FieldType.number;
 
   const palette = getThemePalette(theme);
 
   // Use the provided display formatter, or fall back to a default one.
-  const formatValue = values?.display
-    ? values.display
+  const formatValue = sizeField?.display
+    ? sizeField.display
     : (value: number): DisplayValue => ({ numeric: value, text: value.toString() });
 
   // Convert fields into rows.
   const rows = Array.from({ length: frame.length }).map((v, i) => ({
-    name: names?.values.get(i),
-    value: values?.values.get(i),
-    category: category?.values.get(i),
+    text: textField?.values.get(i),
+    size: sizeField?.values.get(i),
+    label: colorField?.values.get(i),
   }));
 
   const allCategories = [
@@ -48,7 +44,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
       parent: '',
     },
   ].concat(
-    [...new Set(rows.map(row => row.category).concat(['Ungrouped']))].map(c => ({
+    [...new Set(rows.map(row => row.label).concat(['Ungrouped']))].map(c => ({
       name: c,
       parent: 'Origin',
     }))
@@ -56,10 +52,10 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   // Convert rows to links for the stratify function.
   const links = rows.map((link, i) => ({
-    name: link.name,
-    value: link.value,
-    parent: options.isGrouped ? link.category || 'Ungrouped' : 'Origin',
-    category: link.category,
+    name: link.text,
+    value: link.size,
+    parent: isGrouped ? link.label || 'Ungrouped' : 'Origin',
+    category: link.label,
   }));
 
   const root = d3
@@ -90,6 +86,11 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
     .scaleOrdinal<string>()
     .domain(allCategories.map(c => c.name))
     .range(getThemePalette(theme));
+
+  const colorScale2 = d3
+    .scaleLinear<string>()
+    .domain([sizeField?.config.min || 0, sizeField?.config.max || 0])
+    .range([theme.palette.white, palette[0]]);
 
   return (
     <svg width={width} height={height}>
@@ -130,7 +131,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                     ry={3}
                     width={innerWidth}
                     height={innerHeight}
-                    fill={options.isGrouped ? colorScale(d.data.category) : palette[0]}
+                    fill={isGrouped ? colorScale(d.data.category) : colorScale2(d.data.category)}
                   />
                   {textFitsInRect ? (
                     <text x={d.x0 + margin.left} y={d.y0 + margin.top} fill={theme.palette.white}>

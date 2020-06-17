@@ -2,5 +2,7 @@ type TilingOption = 'treemapBinary' | 'treemapDice' | 'treemapSlice' | 'treemapS
 
 export interface TreemapOptions {
   tiling: TilingOption;
-  isGrouped: boolean;
+  textField: string;
+  sizeField: string;
+  colorField: string;
 }
