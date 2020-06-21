@@ -18,15 +18,7 @@ export const FieldSelectEditor: React.FC<Props> = ({ item, value, onChange, cont
         value: field.name,
       }));
 
-    return (
-      <Select<string>
-        isLoading={false}
-        value={value}
-        defaultValue={options[0].value}
-        onChange={e => onChange(e.value)}
-        options={options}
-      />
-    );
+    return <Select<string> isLoading={false} value={value} onChange={e => onChange(e.value)} options={options} />;
   }
 
   return <Select onChange={() => {}} disabled={true} />;

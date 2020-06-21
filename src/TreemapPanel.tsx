@@ -18,9 +18,15 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const frame = data.series[0];
 
-  const textField = frame.fields.find(field => field.name === options.textField);
-  const sizeField = frame.fields.find(field => field.name === options.sizeField);
-  const colorField = frame.fields.find(field => field.name === options.colorField);
+  const textField = frame.fields.find(field =>
+    options.textField ? field.name === options.textField : field.type === FieldType.string
+  );
+  const sizeField = frame.fields.find(field =>
+    options.sizeField ? field.name === options.sizeField : field.type === FieldType.number
+  );
+  const colorField = frame.fields.find(field =>
+    options.colorField ? field.name === options.colorField : field.type === FieldType.number
+  );
 
   const isGrouped = colorField?.type !== FieldType.number;
 

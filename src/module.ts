@@ -11,9 +11,10 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
     return builder
       .addSelect({
         path: 'tiling',
-        name: 'Tiling',
-        description: 'Tiling algorithm to use',
+        name: 'Tiling algorithm',
+        description: 'Determines where to make each split.',
         defaultValue: 'treemapSquarify',
+
         settings: {
           options: [
             { label: 'Binary', value: 'treemapBinary' },
@@ -27,8 +28,10 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
       .addCustomEditor({
         id: 'textField',
         path: 'textField',
-        name: 'Text from field',
+        name: 'Text',
+        description: 'Field to use for text. Defaults to the first textual field.',
         editor: FieldSelectEditor,
+        category: ['Dimensions'],
         settings: {
           filterByType: FieldType.string,
         },
@@ -36,8 +39,10 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
       .addCustomEditor({
         id: 'sizeField',
         path: 'sizeField',
-        name: 'Size from field',
+        name: 'Size',
+        description: 'Field to use for size. Defaults to the first numeric field.',
         editor: FieldSelectEditor,
+        category: ['Dimensions'],
         settings: {
           filterByType: FieldType.number,
         },
@@ -45,7 +50,9 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
       .addCustomEditor({
         id: 'colorField',
         path: 'colorField',
-        name: 'Color from field',
+        name: 'Color',
+        description: 'Field to use for color. Defaults to the first numeric field.',
+        category: ['Dimensions'],
         editor: FieldSelectEditor,
       });
   });
