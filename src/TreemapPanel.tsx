@@ -95,7 +95,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const colorScale2 = d3
     .scaleLinear<string>()
-    .domain([sizeField?.config.min || 0, sizeField?.config.max || 0])
+    .domain([sizeField?.config.min ?? 0, sizeField?.config.max ?? 0])
     .range([theme.palette.white, palette[0]]);
 
   return (
