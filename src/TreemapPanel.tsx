@@ -26,6 +26,14 @@ import { followCursor } from 'tippy.js';
 
 const docsUrl = 'https://grafana.com/grafana/plugins/marcusolsson-treemap-panel';
 
+// Selecting the same field for text and color creates duplicate nodes. This
+// prefix is used to make the strings used for color unique. The prefix is only
+// used for generating the tree, and is trimmed before presentation.
+const colorNodePrefix = '$color_';
+
+const originNodeId = 'Origin';
+const ungroupedNodeId = 'Ungrouped';
+
 interface Props extends PanelProps<TreemapOptions> {}
 
 export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) => {
@@ -98,13 +106,13 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const allCategories = [
     {
-      name: 'Origin',
+      name: originNodeId,
       parent: '',
     },
   ].concat(
-    [...new Set(rows.map(row => row.color).concat(['Ungrouped']))].map(c => ({
-      name: c,
-      parent: 'Origin',
+    [...new Set(rows.map(row => row.color).concat([ungroupedNodeId]))].map(c => ({
+      name: colorNodePrefix + c,
+      parent: originNodeId,
     }))
   );
 
@@ -112,7 +120,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   const links = rows.map((link, i) => ({
     name: link.text,
     value: link.size,
-    parent: isGrouped ? link.color || 'Ungrouped' : 'Origin',
+    parent: isGrouped ? colorNodePrefix + link.color || ungroupedNodeId : originNodeId,
     category: link.color,
   }));
 
@@ -173,8 +181,8 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                 <div>{d.data.name}</div>
                 <div>{displayText}</div>
                 {/* Only display badge if the data has been explicitly grouped. */}
-                {d.data.parent !== 'Ungrouped' && d.data.parent !== 'Origin' ? (
-                  <Badge text={d.data.parent} color={`blue`} />
+                {d.data.parent !== ungroupedNodeId && d.data.parent !== originNodeId ? (
+                  <Badge text={d.data.parent.replace(colorNodePrefix, '')} color={`blue`} />
                 ) : null}
               </div>
             );
