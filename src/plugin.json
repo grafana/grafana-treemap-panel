@@ -3,7 +3,7 @@
   "name": "Treemap",
   "id": "marcusolsson-treemap-panel",
   "info": {
-    "description": "",
+    "description": "Treemap panel for Grafana.",
     "author": {
       "name": "Marcus Olsson",
       "url": "https://marcus.se.net"

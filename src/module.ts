@@ -5,7 +5,7 @@ import { FieldSelectEditor } from './FieldSelectEditor';
 
 export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
   .useFieldConfig({
-    standardOptions: [FieldConfigProperty.Decimals, FieldConfigProperty.Unit],
+    standardOptions: [FieldConfigProperty.Decimals, FieldConfigProperty.Unit, FieldConfigProperty.Mappings],
   })
   .setPanelOptions(builder => {
     return builder
