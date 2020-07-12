@@ -1,8 +1,21 @@
 import React from 'react';
 import * as d3 from 'd3';
+import { css, cx } from 'emotion';
 
-import { PanelProps, FieldType, getNamedColorPalette, getColorForTheme, DisplayValue } from '@grafana/data';
-import { useTheme, Badge } from '@grafana/ui';
+import {
+  PanelProps,
+  FieldType,
+  getNamedColorPalette,
+  getColorForTheme,
+  DisplayValue,
+  MappingType,
+  ValueMap,
+  RangeMap,
+  ValueMapping,
+  Field,
+  ArrayVector,
+} from '@grafana/data';
+import { useTheme, Badge, Icon } from '@grafana/ui';
 
 import { TreemapOptions } from 'types';
 
@@ -10,6 +23,8 @@ import { TreemapOptions } from 'types';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { followCursor } from 'tippy.js';
+
+const docsUrl = 'https://grafana.com/grafana/plugins/marcusolsson-treemap-panel';
 
 interface Props extends PanelProps<TreemapOptions> {}
 
@@ -28,6 +43,38 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
     options.colorField ? field.name === options.colorField : field.type === FieldType.number
   );
 
+  const success = css`
+    color: ${theme.palette.brandSuccess};
+  `;
+  if (!textField || !sizeField) {
+    return (
+      <div style={{ overflow: 'hidden', height: '100%' }}>
+        <p>To get started, create a query that returns:</p>
+        <p>
+          <div>
+            <span className={cx({ [success]: !!textField })}>
+              <Icon name={textField ? 'check-circle' : 'circle'} />
+            </span>
+            <span style={{ marginLeft: 5 }}>A text field</span>
+          </div>
+          <div>
+            <span className={cx({ [success]: !!sizeField })}>
+              <Icon name={sizeField ? 'check-circle' : 'circle'} />
+            </span>
+            <span style={{ marginLeft: 5 }}>A number field</span>
+          </div>
+        </p>
+        <a href={docsUrl} style={{ color: theme.colors.linkExternal }}>
+          Read the documentation
+        </a>
+      </div>
+    );
+  }
+
+  if (frame.length === 0) {
+    return <p>Query returned an empty result.</p>;
+  }
+
   const isGrouped = colorField?.type !== FieldType.number;
 
   const palette = getThemePalette(theme);
@@ -37,11 +84,16 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
     ? sizeField.display
     : (value: number): DisplayValue => ({ numeric: value, text: value.toString() });
 
+  // Apply value mappings.
+  const mappedTextField = withMappedValues(textField, textField?.config.mappings ?? []);
+  const mappedSizeField = withMappedValues(sizeField, sizeField?.config.mappings ?? []);
+  const mappedColorField = withMappedValues(colorField, colorField?.config.mappings ?? []);
+
   // Convert fields into rows.
   const rows = Array.from({ length: frame.length }).map((v, i) => ({
-    text: textField?.values.get(i),
-    size: sizeField?.values.get(i),
-    label: colorField?.values.get(i),
+    text: mappedTextField?.values.get(i),
+    size: mappedSizeField?.values.get(i),
+    color: mappedColorField?.values.get(i),
   }));
 
   const allCategories = [
@@ -50,7 +102,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
       parent: '',
     },
   ].concat(
-    [...new Set(rows.map(row => row.label).concat(['Ungrouped']))].map(c => ({
+    [...new Set(rows.map(row => row.color).concat(['Ungrouped']))].map(c => ({
       name: c,
       parent: 'Origin',
     }))
@@ -60,8 +112,8 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   const links = rows.map((link, i) => ({
     name: link.text,
     value: link.size,
-    parent: isGrouped ? link.label || 'Ungrouped' : 'Origin',
-    category: link.label,
+    parent: isGrouped ? link.color || 'Ungrouped' : 'Origin',
+    category: link.color,
   }));
 
   const root = d3
@@ -169,4 +221,57 @@ const measureText = (text: string): number => {
     return ctx.measureText(text).width;
   }
   return 0;
+};
+
+const withMappedValues = (field: Field | undefined, mappings: ValueMapping[]): Field | undefined => {
+  if (field) {
+    const copy = field?.values.toArray();
+    const values = copy?.map(val => mapFieldValue(val, mappings));
+    field.values = new ArrayVector(values);
+  }
+  return field;
+};
+
+const mapFieldValue = (value: string | number, mappings: ValueMapping[]): any => {
+  let res;
+  if (mappings.length === 0) {
+    return value;
+  }
+  for (let mapping of mappings) {
+    if (typeof value === 'number') {
+      if (mapping.type === MappingType.ValueToText) {
+        const valueMap = mapping as ValueMap;
+        res = value.toString() === valueMap.value ? +valueMap.text : value;
+      } else if (mapping.type == MappingType.RangeToText) {
+        const rangeMap = mapping as RangeMap;
+        const inRange = +rangeMap.from <= value && value < +rangeMap.to;
+        res = inRange ? rangeMap.to : value;
+      }
+    } else if (typeof value === 'string') {
+      if (mapping.type === MappingType.ValueToText) {
+        const valueMap = mapping as ValueMap;
+        res = value.toString() === valueMap.value ? valueMap.text : value;
+      } else if (mapping.type === MappingType.RangeToText) {
+        // Can't map a string to a numeric range.
+        res = value;
+      }
+    }
+  }
+  return res;
+};
+
+/**
+ * toSentence converts a string array to a sentence.
+ *
+ * For example, `["foo", "bar", "baz"]` becomes `foo, bar, and baz`.
+ */
+const toSentence = (arr: string[]) => {
+  if (arr.length === 0) {
+    return '';
+  }
+  if (arr.length === 1) {
+    return arr[0];
+  }
+  const last = arr.pop();
+  return arr.join(', ') + (arr.length > 1 ? ', and ' : ' and ') + last;
 };
