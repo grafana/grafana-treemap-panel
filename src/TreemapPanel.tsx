@@ -267,19 +267,3 @@ const mapFieldValue = (value: string | number, mappings: ValueMapping[]): any =>
   }
   return res;
 };
-
-/**
- * toSentence converts a string array to a sentence.
- *
- * For example, `["foo", "bar", "baz"]` becomes `foo, bar, and baz`.
- */
-const toSentence = (arr: string[]) => {
-  if (arr.length === 0) {
-    return '';
-  }
-  if (arr.length === 1) {
-    return arr[0];
-  }
-  const last = arr.pop();
-  return arr.join(', ') + (arr.length > 1 ? ', and ' : ' and ') + last;
-};
