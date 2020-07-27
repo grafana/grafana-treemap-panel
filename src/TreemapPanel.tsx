@@ -250,7 +250,7 @@ const mapFieldValue = (value: string | number, mappings: ValueMapping[]): any =>
       if (mapping.type === MappingType.ValueToText) {
         const valueMap = mapping as ValueMap;
         res = value.toString() === valueMap.value ? +valueMap.text : value;
-      } else if (mapping.type == MappingType.RangeToText) {
+      } else if (mapping.type === MappingType.RangeToText) {
         const rangeMap = mapping as RangeMap;
         const inRange = +rangeMap.from <= value && value < +rangeMap.to;
         res = inRange ? rangeMap.to : value;
