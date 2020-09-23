@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "Treemap",
+  "id": "marcusolsson-treemap-panel",
+  "info": {
+    "description": "Treemap panel for Grafana.",
+    "author": {
+      "name": "Marcus Olsson",
+      "url": "https://marcus.se.net"
+    },
+    "keywords": ["treemap"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/marcusolsson/grafana-treemap-panel"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/marcusolsson/grafana-treemap-panel/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "0.3.0",
+    "updated": "2020-09-23"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "grafanaVersion": "7.0.x",
+    "plugins": []
+  }
+}
