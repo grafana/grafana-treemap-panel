@@ -5,7 +5,7 @@
 
 A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
-![Screenshot](https://raw.githubusercontent.com/marcusolsson/grafana-treemap-panel/master/docs/screenshot.png)
+![Screenshot](https://github.com/marcusolsson/grafana-treemap-panel/raw/master/src/img/screenshot.png)
 
 ## Configuration
 
@@ -34,7 +34,3 @@ The dimension options determines what fields to use for each dimension of the vi
 #### Standard options
 
 - **Decimals** and **Unit** sets the textual format of each value.
-
-## License
-
-This plugin is licensed under the [Apache 2.0 License](LICENSE).
