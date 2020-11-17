@@ -5,8 +5,7 @@ import { css, cx } from 'emotion';
 import {
   PanelProps,
   FieldType,
-  getNamedColorPalette,
-  getColorForTheme,
+  classicColors,
   DisplayValue,
   MappingType,
   ValueMap,
@@ -85,8 +84,6 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const isGrouped = colorField?.type !== FieldType.number;
 
-  const palette = getThemePalette(theme);
-
   // Use the provided display formatter, or fall back to a default one.
   const formatValue = sizeField?.display
     ? sizeField.display
@@ -151,12 +148,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   const colorScale = d3
     .scaleOrdinal<string>()
     .domain(allCategories.map(c => c.name))
-    .range(getThemePalette(theme));
-
-  const colorScale2 = d3
-    .scaleLinear<string>()
-    .domain([sizeField?.config.min ?? 0, sizeField?.config.max ?? 0])
-    .range([theme.palette.white, palette[0]]);
+    .range(classicColors);
 
   return (
     <svg width={width} height={height}>
@@ -197,7 +189,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                     ry={3}
                     width={innerWidth}
                     height={innerHeight}
-                    fill={isGrouped ? colorScale(d.data.category) : colorScale2(d.data.category)}
+                    fill={isGrouped ? colorScale(d.data.category) : sizeField.display!(d.data.category).color}
                   />
                   {textFitsInRect ? (
                     <text x={d.x0 + margin.left} y={d.y0 + margin.top} fill={theme.palette.white}>
@@ -211,14 +203,6 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
       </g>
     </svg>
   );
-};
-
-const getThemePalette = (theme: any): string[] => {
-  const colors: string[] = [];
-  for (let entry of getNamedColorPalette()) {
-    colors.push(getColorForTheme(entry[1][0], theme.type));
-  }
-  return colors;
 };
 
 const measureText = (text: string): number => {

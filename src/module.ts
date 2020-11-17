@@ -5,7 +5,13 @@ import { FieldSelectEditor } from './FieldSelectEditor';
 
 export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
   .useFieldConfig({
-    standardOptions: [FieldConfigProperty.Decimals, FieldConfigProperty.Unit, FieldConfigProperty.Mappings],
+    standardOptions: [
+      FieldConfigProperty.Decimals,
+      FieldConfigProperty.Unit,
+      FieldConfigProperty.Mappings,
+      FieldConfigProperty.Color,
+      FieldConfigProperty.Thresholds,
+    ],
   })
   .setPanelOptions(builder => {
     return builder
@@ -51,7 +57,8 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
         id: 'colorField',
         path: 'colorField',
         name: 'Color',
-        description: 'Field to use for color. Defaults to the first numeric field.',
+        description:
+          "Field to use for color. Defaults to the first numeric field. Configure the Color scheme in the Field tab. You can only change the color scheme if you're using a numeric field for color.",
         category: ['Dimensions'],
         editor: FieldSelectEditor,
       });
