@@ -1,0 +1,25 @@
+name: Test & Build
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: |
+        yarn install --frozen-lockfile;
+    - name: Test
+      run: |
+        yarn test;
+    - name: Build
+      run: |
+        yarn build;
