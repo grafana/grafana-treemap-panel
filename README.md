@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/github/license/marcusolsson/grafana-treemap-panel)](LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contribute)
+![Release](https://github.com/marcusolsson/grafana-treemap-panel/workflows/Release/badge.svg)
 
 A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
