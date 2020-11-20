@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/github/license/marcusolsson/grafana-treemap-panel)](LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contribute)
-![Release](https://github.com/marcusolsson/grafana-treemap-panel/workflows/Release/badge.svg)
+[![Build](https://github.com/marcusolsson/grafana-treemap-panel/workflows/Test%20&%20Build/badge.svg)](https://github.com/marcusolsson/grafana-treemap-panel/actions?query=workflow%3A%22Test+%26+Build%22)
+[![Release](https://github.com/marcusolsson/grafana-treemap-panel/workflows/Release/badge.svg)](https://github.com/marcusolsson/grafana-treemap-panel/actions?query=workflow%3ARelease)
 
 A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
