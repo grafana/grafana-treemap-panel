@@ -12,28 +12,23 @@ A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
 ## Configuration
 
-### Query
-
-The Treemap panel expects a query that returns **text** field, and a **number** field.
+This section lists the available configuration options for the Treemap panel.
 
 ### Panel options
-
-#### Display
-
-- **Tiling algorithm** determines where to make each split.
 
 #### Dimensions
 
 The dimension options determines what fields to use for each dimension of the visualization.
 
-- **Text** specifies the field to use for identifying each tile. Must be unique.
-- **Size** specifies the field to use for the size of each tile. Must be a numeric field.
-- **Color** specifies the field to use for the color of each tile.
-  - If the field is numeric, each tile is linearly mapped to a color spectrum.
-  - If the field is textual, that field is used to group tiles into colored categories.
+| Option | Description |
+|--------|-------------|
+| _Text_ | Field to use for the text. Must be unique. Defaults to the first textual field. |
+| _Size_ | Field to use for size. Defaults to the first numeric field. |
+| _Group by_ | Field to group by. |
+| _Labels_ | Fields to use as labels in the tooltip. |
 
-### Field options
+#### Display
 
-#### Standard options
-
-- **Decimals** and **Unit** sets the textual format of each value.
+| Option | Description |
+|--------|-------------|
+| _Tiling algorithm_ | Determines where to make each split. |

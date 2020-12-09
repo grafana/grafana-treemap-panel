@@ -9,8 +9,11 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
       FieldConfigProperty.Decimals,
       FieldConfigProperty.Unit,
       FieldConfigProperty.Mappings,
+      FieldConfigProperty.Min,
+      FieldConfigProperty.Max,
       FieldConfigProperty.Color,
       FieldConfigProperty.Thresholds,
+      FieldConfigProperty.Links,
     ],
   })
   .setPanelOptions(builder => {
@@ -35,7 +38,7 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
         id: 'textField',
         path: 'textField',
         name: 'Text',
-        description: 'Field to use for text. Defaults to the first textual field.',
+        description: 'Field to use for the text. Must be unique. Defaults to the first textual field.',
         editor: FieldSelectEditor,
         category: ['Dimensions'],
         settings: {
@@ -54,12 +57,22 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
         },
       })
       .addCustomEditor({
-        id: 'colorField',
-        path: 'colorField',
-        name: 'Color',
-        description:
-          "Field to use for color. Defaults to the first numeric field. Configure the Color scheme in the Field tab. You can only change the color scheme if you're using a numeric field for color.",
+        id: 'groupByField',
+        path: 'groupByField',
+        name: 'Group by',
+        description: 'Field to group by.',
         category: ['Dimensions'],
         editor: FieldSelectEditor,
+      })
+      .addCustomEditor({
+        id: 'labelFields',
+        path: 'labelFields',
+        name: 'Labels',
+        description: 'Fields to use as labels in the tooltip.',
+        category: ['Dimensions'],
+        editor: FieldSelectEditor,
+        settings: {
+          multi: true,
+        },
       });
   });
