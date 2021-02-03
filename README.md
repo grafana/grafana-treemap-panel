@@ -9,7 +9,7 @@
 
 A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
-![Screenshot](https://github.com/marcusolsson/grafana-treemap-panel/raw/master/src/img/screenshot.png)
+![Screenshot](https://github.com/marcusolsson/grafana-treemap-panel/raw/main/src/img/screenshot.png)
 
 ## Configuration
 
