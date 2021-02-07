@@ -12,9 +12,9 @@ interface Props extends StandardEditorProps<string | string[], Settings> {}
 export const FieldSelectEditor: React.FC<Props> = ({ item, value, onChange, context }) => {
   if (context.data && context.data.length > 0) {
     const options = context.data
-      .flatMap(frame => frame.fields)
-      .filter(field => (item.settings?.filterByType ? field.type === item.settings?.filterByType : true))
-      .map(field => ({
+      .flatMap((frame) => frame.fields)
+      .filter((field) => (item.settings?.filterByType ? field.type === item.settings?.filterByType : true))
+      .map((field) => ({
         label: field.name,
         value: field.name,
       }));
@@ -24,12 +24,12 @@ export const FieldSelectEditor: React.FC<Props> = ({ item, value, onChange, cont
         <MultiSelect<string>
           isLoading={false}
           value={value as string[]}
-          onChange={e => onChange(e.map(_ => _.value!))}
+          onChange={(e) => onChange(e.map((_) => _.value!))}
           options={options}
         />
       );
     } else {
-      return <Select<string> isLoading={false} value={value} onChange={e => onChange(e.value)} options={options} />;
+      return <Select<string> isLoading={false} value={value} onChange={(e) => onChange(e.value)} options={options} />;
     }
   }
 

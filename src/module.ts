@@ -5,18 +5,18 @@ import { FieldSelectEditor } from './FieldSelectEditor';
 
 export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
   .useFieldConfig({
-    standardOptions: [
-      FieldConfigProperty.Decimals,
-      FieldConfigProperty.Unit,
-      FieldConfigProperty.Mappings,
-      FieldConfigProperty.Min,
-      FieldConfigProperty.Max,
-      FieldConfigProperty.Color,
-      FieldConfigProperty.Thresholds,
-      FieldConfigProperty.Links,
-    ],
+    standardOptions: {
+      [FieldConfigProperty.Decimals]: {},
+      [FieldConfigProperty.Unit]: {},
+      [FieldConfigProperty.Mappings]: {},
+      [FieldConfigProperty.Min]: {},
+      [FieldConfigProperty.Max]: {},
+      [FieldConfigProperty.Color]: {},
+      [FieldConfigProperty.Thresholds]: {},
+      [FieldConfigProperty.Links]: {},
+    },
   })
-  .setPanelOptions(builder => {
+  .setPanelOptions((builder) => {
     return builder
       .addSelect({
         path: 'tiling',

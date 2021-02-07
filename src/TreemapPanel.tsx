@@ -14,7 +14,7 @@ import {
   ArrayVector,
   DisplayValue,
 } from '@grafana/data';
-import { useTheme, Badge, ContextMenu, ContextMenuGroup, ContextMenuItem, InfoBox } from '@grafana/ui';
+import { useTheme, Badge, ContextMenu, MenuItemsGroup, MenuItem, InfoBox } from '@grafana/ui';
 
 import { TreemapOptions } from 'types';
 
@@ -36,24 +36,24 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   // State for context menu.
   const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
   const [contextMenuLabel, setContextMenuLabel] = useState<React.ReactNode | string>('');
-  const [contextMenuGroups, setContextMenuGroups] = useState<ContextMenuGroup[]>([]);
+  const [contextMenuGroups, setContextMenuGroups] = useState<MenuItemsGroup[]>([]);
   const [showContextMenu, setShowContextMenu] = useState(false);
 
   const theme = useTheme();
 
   const frames = data.series
-    .map(frame => {
+    .map((frame) => {
       const textField = options.textField
-        ? frame.fields.find(f => f.name === options.textField)
-        : frame.fields.find(f => f.type === 'string');
+        ? frame.fields.find((f) => f.name === options.textField)
+        : frame.fields.find((f) => f.type === 'string');
 
       const sizeField = options.sizeField
-        ? frame.fields.find(f => f.name === options.sizeField)
-        : frame.fields.find(f => f.type === 'number');
+        ? frame.fields.find((f) => f.name === options.sizeField)
+        : frame.fields.find((f) => f.type === 'number');
 
-      const groupByField = frame.fields.find(f => f.name === options.groupByField);
+      const groupByField = frame.fields.find((f) => f.name === options.groupByField);
 
-      const labelFields = options.labelFields?.map(_ => frame.fields.find(f => f.name === _)) ?? [];
+      const labelFields = options.labelFields?.map((_) => frame.fields.find((f) => f.name === _)) ?? [];
 
       return {
         label: textField,
@@ -63,13 +63,13 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
         labels: labelFields,
       };
     })
-    .map(frame => ({
+    .map((frame) => ({
       ...frame,
       text: withMappedValues(frame.label, frame.label?.config.mappings ?? []),
       value: withMappedValues(frame.value, frame.value?.config.mappings ?? []),
-      labels: frame.labels.map(_ => withMappedValues(_, _?.config.mappings ?? [])),
+      labels: frame.labels.map((_) => withMappedValues(_, _?.config.mappings ?? [])),
     }))
-    .filter(frame => frame.text && frame.value);
+    .filter((frame) => frame.text && frame.value);
 
   if (frames.length === 0) {
     return (
@@ -96,20 +96,20 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   const groups = [
     { name: originNodeId, parent: '' },
     // Add the refIds as parent nodes.
-    ...data.series.map(_ => _.refId!).map(refId => ({ name: refId, parent: originNodeId })),
+    ...data.series.map((_) => _.refId!).map((refId) => ({ name: refId, parent: originNodeId })),
     // Add categories for all the unique values in the groupBy field using the
     // refId as the parent node.
     ...frames
-      .map(fields => ({
+      .map((fields) => ({
         refId: fields.refId,
         values: fields.groupBy ? [...new Set(fields.groupBy.values.toArray())] : [],
       }))
-      .flatMap(_ => _.values!.map(value => ({ name: value.toString(), parent: _.refId! })))
-      .map(_ => ({ ..._, name: JSON.stringify(_) })),
+      .flatMap((_) => _.values!.map((value) => ({ name: value.toString(), parent: _.refId! })))
+      .map((_) => ({ ..._, name: JSON.stringify(_) })),
   ];
 
   // Create the nodes for the treemap.
-  const nodes = frames.flatMap(fields =>
+  const nodes = frames.flatMap((fields) =>
     Array.from({ length: fields.text?.values.length! }).map(
       (_, i): TreemapNode => ({
         name: fields.text!.values.get(i)!,
@@ -141,8 +141,8 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
         <g>
           {root
             .leaves()
-            .filter(d => !(isNaN(d.x0) || isNaN(d.x1) || isNaN(d.y0) || isNaN(d.y1)))
-            .filter(d => d.data.textField && d.data.sizeField)
+            .filter((d) => !(isNaN(d.x0) || isNaN(d.x1) || isNaN(d.y0) || isNaN(d.y1)))
+            .filter((d) => d.data.textField && d.data.sizeField)
             .map((d, i) => {
               const node = d.data;
 
@@ -162,10 +162,11 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                   </div>
                   {node.valueRowIndex
                     ? node.labelFields
-                        ?.map(_ => _?.display!(_?.values.get(node.valueRowIndex!)))
-                        .map(_ => getFormattedDisplayValue(_!))
-                        .map(_ => (
+                        ?.map((_) => _?.display!(_?.values.get(node.valueRowIndex!)))
+                        .map((_) => getFormattedDisplayValue(_!))
+                        .map((_, key) => (
                           <Badge
+                            key={key}
                             className={css`
                               margin-right: ${theme.spacing.xs};
                               &:last-child {
@@ -190,7 +191,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                     className={css`
                       cursor: pointer;
                     `}
-                    onClick={e => {
+                    onClick={(e) => {
                       setContextMenuPos({ x: e.clientX, y: e.clientY });
                       setShowContextMenu(true);
                       setContextMenuLabel(
@@ -200,13 +201,13 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                       );
                       setContextMenuGroups([
                         {
-                          items: node.sizeField!.getLinks!({ valueRowIndex: node.valueRowIndex }).map<ContextMenuItem>(
-                            link => {
+                          items: node.sizeField!.getLinks!({ valueRowIndex: node.valueRowIndex }).map<MenuItem>(
+                            (link) => {
                               return {
                                 label: link.title,
                                 url: link.href,
                                 target: link.target,
-                                icon: `${link.target === '_self' ? 'link' : 'external-link-alt'}`,
+                                icon: link.target === '_self' ? 'link' : 'external-link-alt',
                                 onClick: link.onClick,
                               };
                             }
@@ -228,8 +229,8 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                       <text
                         x={d.x0 + margin.left}
                         y={d.y0 + margin.top}
-                        font-size="12px"
-                        font-weight="500"
+                        fontSize="12px"
+                        fontWeight="500"
                         fill={theme.colors.panelBg}
                       >
                         {node.name}
@@ -248,7 +249,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 const withMappedValues = (field: Field | undefined, mappings: ValueMapping[]): Field | undefined => {
   if (field) {
     const copy = field?.values.toArray();
-    const values = copy?.map(val => mapFieldValue(val, mappings));
+    const values = copy?.map((val) => mapFieldValue(val, mappings));
     field.values = new ArrayVector(values);
   }
   return field;
@@ -313,24 +314,19 @@ const buildTreemap = ({
 }: TreemapBuilderOptions): d3.HierarchyRectangularNode<TreemapNode> => {
   const stratify = d3
     .stratify<TreemapNode>()
-    .id(d => d.name)
-    .parentId(d => d.parent);
+    .id((d) => d.name)
+    .parentId((d) => d.parent);
 
   const root = stratify([...groups, ...nodes]);
 
   // Sum and sort values.
   root
-    .sum(d => {
+    .sum((d) => {
       return d.value!;
     })
     .sort((a, b) => b.value! - a.value!);
 
-  let treemap = d3
-    .treemap<TreemapNode>()
-    .tile(d3[tiling])
-    .size([width, height])
-    .round(true)
-    .padding(4);
+  let treemap = d3.treemap<TreemapNode>().tile(d3[tiling]).size([width, height]).round(true).padding(4);
 
   return treemap(root);
 };
@@ -338,7 +334,7 @@ const buildTreemap = ({
 const renderContextMenu = (
   pos: { x: number; y: number },
   label: React.ReactNode | string,
-  items: ContextMenuGroup[],
+  items: MenuItemsGroup[],
   onClose: () => void
 ) => {
   const contextContentProps = {
