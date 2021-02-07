@@ -1,7 +1,12 @@
 {
   "name": "marcusolsson-treemap-panel",
   "version": "0.7.0",
-  "description": "A panel plugin for Grafana to visualize treemaps.",
+  "description": "A panel plugin for Grafana to visualize treemaps",
+  "keywords": [
+    "grafana",
+    "treemap"
+  ],
+  "license": "Apache-2.0",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",
@@ -9,11 +14,16 @@
     "watch": "grafana-toolkit plugin:dev --watch",
     "sign": "grafana-toolkit plugin:sign"
   },
+  "homepage": "https://grafana.com/plugins/marcusolsson-treemap-panel",
+  "bugs": "https://github.com/marcusolsson/grafana-treemap-panel/issues",
   "repository": "github:marcusolsson/grafana-treemap-panel",
-  "author": "Marcus Olsson",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/marcusolsson/grafana-treemap-panel/issues"
+  "author": {
+    "name": "Marcus Olsson",
+    "email": "marcus.olsson@hey.com",
+    "url": "https://marcus.se.net"
+  },
+  "dependencies": {
+    "@tippyjs/react": "^4.0.2"
   },
   "devDependencies": {
     "@grafana/data": "^7.3.0",
@@ -24,8 +34,5 @@
   },
   "engines": {
     "node": ">=14"
-  },
-  "dependencies": {
-    "@tippyjs/react": "^4.0.2"
   }
 }
