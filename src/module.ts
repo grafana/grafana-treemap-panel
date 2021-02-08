@@ -43,7 +43,7 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
         editor: FieldSelectEditor,
         category: ['Dimensions'],
         settings: {
-          filterByType: FieldType.string,
+          filterByType: [FieldType.string],
         },
       })
       .addCustomEditor({
@@ -54,7 +54,7 @@ export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
         editor: FieldSelectEditor,
         category: ['Dimensions'],
         settings: {
-          filterByType: FieldType.number,
+          filterByType: [FieldType.number],
         },
       })
       .addCustomEditor({
