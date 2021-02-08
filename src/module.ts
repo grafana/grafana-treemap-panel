@@ -2,19 +2,20 @@ import { PanelPlugin, FieldType, FieldConfigProperty } from '@grafana/data';
 import { TreemapOptions } from './types';
 import { TreemapPanel } from './TreemapPanel';
 import { FieldSelectEditor } from './FieldSelectEditor';
+import { standardOptions } from './helpers';
 
 export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
   .useFieldConfig({
-    standardOptions: {
-      [FieldConfigProperty.Decimals]: {},
-      [FieldConfigProperty.Unit]: {},
-      [FieldConfigProperty.Mappings]: {},
-      [FieldConfigProperty.Min]: {},
-      [FieldConfigProperty.Max]: {},
-      [FieldConfigProperty.Color]: {},
-      [FieldConfigProperty.Thresholds]: {},
-      [FieldConfigProperty.Links]: {},
-    },
+    standardOptions: standardOptions([
+      FieldConfigProperty.Decimals,
+      FieldConfigProperty.Unit,
+      FieldConfigProperty.Mappings,
+      FieldConfigProperty.Min,
+      FieldConfigProperty.Max,
+      FieldConfigProperty.Color,
+      FieldConfigProperty.Thresholds,
+      FieldConfigProperty.Links,
+    ]),
   })
   .setPanelOptions((builder) => {
     return builder
