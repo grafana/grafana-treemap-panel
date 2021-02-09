@@ -1,12 +1,12 @@
 import { PanelPlugin, FieldType, FieldConfigProperty } from '@grafana/data';
 import { TreemapOptions } from './types';
 import { TreemapPanel } from './TreemapPanel';
-import { FieldSelectEditor } from './FieldSelectEditor';
-import { standardOptions } from './helpers';
+import { FieldSelectEditor } from 'grafana-plugin-support';
+import { standardOptionsCompat } from 'grafana-plugin-support';
 
 export const plugin = new PanelPlugin<TreemapOptions>(TreemapPanel)
   .useFieldConfig({
-    standardOptions: standardOptions([
+    standardOptions: standardOptionsCompat([
       FieldConfigProperty.Decimals,
       FieldConfigProperty.Unit,
       FieldConfigProperty.Mappings,

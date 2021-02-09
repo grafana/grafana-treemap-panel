@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@tippyjs/react": "^4.0.2",
+    "grafana-plugin-support": "^0.1.0",
     "semver": "^7.3.4"
   },
   "devDependencies": {

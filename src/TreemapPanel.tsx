@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as d3 from 'd3';
 import { TilingOption } from './types';
-import { measureText } from './helpers';
+import { measureText } from 'grafana-plugin-support';
 import { css } from 'emotion';
 
 import {
@@ -149,7 +149,8 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
               const innerWidth = d.x1 - d.x0;
               const innerHeight = d.y1 - d.y0;
 
-              const textFitsHorizontally = measureText(node.name) + margin.left + margin.right < innerWidth;
+              const textFitsHorizontally =
+                (measureText(node.name, '12px')?.width ?? 0) + margin.left + margin.right < innerWidth;
               const textFitsVertically = margin.top + margin.bottom < innerHeight;
               const textFitsInRect = textFitsHorizontally && textFitsVertically;
               const valueText = getFormattedDisplayValue(node.sizeField!.display!(node.value));
