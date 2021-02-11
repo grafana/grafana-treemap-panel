@@ -24,12 +24,12 @@
   },
   "dependencies": {
     "@tippyjs/react": "^4.0.2",
-    "grafana-plugin-support": "^0.1.0",
+    "grafana-plugin-support": "0.2.0-alpha.1",
     "semver": "^7.3.4"
   },
   "devDependencies": {
     "@grafana/data": "^7.3.0",
-    "@grafana/runtime": "^7.4.0",
+    "@grafana/runtime": "^7.3.0",
     "@grafana/toolkit": "^7.3.0",
     "@grafana/ui": "^7.3.0",
     "@types/d3": "^5.7.2",
