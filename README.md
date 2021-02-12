@@ -23,10 +23,11 @@ The dimension options determines what fields to use for each dimension of the vi
 
 | Option | Description |
 |--------|-------------|
-| _Text_ | Field to use for the text. Must be unique. Defaults to the first textual field. |
-| _Size_ | Field to use for size. Defaults to the first numeric field. |
+| _Label by_ | Field to use for the text label. Defaults to the first textual field. All values must be unique. |
+| _Size by_ | Field to use for size. Defaults to the first numeric field. |
+| _Color by_ | Field to use for color. Defaults to the first numeric field. |
 | _Group by_ | Field to group by. |
-| _Labels_ | Fields to use as labels in the tooltip. |
+| _Additional labels_ | Fields to use as labels in the tooltip. |
 
 #### Display
 
