@@ -40,8 +40,9 @@ export const plugin = getPanelPluginOrFallback(
         .addCustomEditor({
           id: 'textField',
           path: 'textField',
-          name: 'Text',
-          description: 'Field to use for the text. Must be unique. Defaults to the first textual field.',
+          name: 'Label by',
+          description:
+            'Field to use for the text label. Defaults to the first textual field. All values must be unique.',
           editor: FieldSelectEditor,
           category: ['Dimensions'],
           settings: {
@@ -51,8 +52,19 @@ export const plugin = getPanelPluginOrFallback(
         .addCustomEditor({
           id: 'sizeField',
           path: 'sizeField',
-          name: 'Size',
+          name: 'Size by',
           description: 'Field to use for size. Defaults to the first numeric field.',
+          editor: FieldSelectEditor,
+          category: ['Dimensions'],
+          settings: {
+            filterByType: [FieldType.number],
+          },
+        })
+        .addCustomEditor({
+          id: 'colorByField',
+          path: 'colorByField',
+          name: 'Color by',
+          description: 'Field to use for color. Defaults to the first numeric field.',
           editor: FieldSelectEditor,
           category: ['Dimensions'],
           settings: {
@@ -70,7 +82,7 @@ export const plugin = getPanelPluginOrFallback(
         .addCustomEditor({
           id: 'labelFields',
           path: 'labelFields',
-          name: 'Labels',
+          name: 'Additional labels',
           description: 'Fields to use as labels in the tooltip.',
           category: ['Dimensions'],
           editor: FieldSelectEditor,

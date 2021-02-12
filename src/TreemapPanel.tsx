@@ -1,19 +1,10 @@
 import React, { useState } from 'react';
 import * as d3 from 'd3';
 import { TilingOption } from './types';
-import { measureText } from 'grafana-plugin-support';
+import { getFormattedDisplayValue, measureText } from 'grafana-plugin-support';
 import { css } from 'emotion';
 
-import {
-  PanelProps,
-  MappingType,
-  ValueMap,
-  RangeMap,
-  ValueMapping,
-  Field,
-  ArrayVector,
-  DisplayValue,
-} from '@grafana/data';
+import { PanelProps, MappingType, ValueMap, RangeMap, ValueMapping, Field, ArrayVector } from '@grafana/data';
 import { useTheme, Badge, ContextMenu, MenuItemsGroup, MenuItem, InfoBox } from '@grafana/ui';
 
 import { TreemapOptions } from 'types';
@@ -43,33 +34,28 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const frames = data.series
     .map((frame) => {
-      const textField = options.textField
-        ? frame.fields.find((f) => f.name === options.textField)
-        : frame.fields.find((f) => f.type === 'string');
-
-      const sizeField = options.sizeField
-        ? frame.fields.find((f) => f.name === options.sizeField)
-        : frame.fields.find((f) => f.type === 'number');
-
-      const groupByField = frame.fields.find((f) => f.name === options.groupByField);
-
-      const labelFields = options.labelFields?.map((_) => frame.fields.find((f) => f.name === _)) ?? [];
-
       return {
-        label: textField,
-        value: sizeField,
-        groupBy: groupByField,
+        textField: options.textField
+          ? frame.fields.find((f) => f.name === options.textField)
+          : frame.fields.find((f) => f.type === 'string'),
+        sizeByField: options.sizeField
+          ? frame.fields.find((f) => f.name === options.sizeField)
+          : frame.fields.find((f) => f.type === 'number'),
+        colorByField: options.colorByField
+          ? frame.fields.find((f) => f.name === options.colorByField)
+          : frame.fields.find((f) => f.type === 'number'),
+        groupByField: frame.fields.find((f) => f.name === options.groupByField),
         refId: frame.refId,
-        labels: labelFields,
+        labels: options.labelFields?.map((_) => frame.fields.find((f) => f.name === _)) ?? [],
       };
     })
     .map((frame) => ({
       ...frame,
-      text: withMappedValues(frame.label, frame.label?.config.mappings ?? []),
-      value: withMappedValues(frame.value, frame.value?.config.mappings ?? []),
+      textField: withMappedValues(frame.textField, frame.textField?.config.mappings ?? []),
+      sizeByField: withMappedValues(frame.sizeByField, frame.sizeByField?.config.mappings ?? []),
       labels: frame.labels.map((_) => withMappedValues(_, _?.config.mappings ?? [])),
     }))
-    .filter((frame) => frame.text && frame.value);
+    .filter((frame) => frame.textField && frame.sizeByField && frame.colorByField);
 
   if (frames.length === 0) {
     return (
@@ -93,7 +79,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   }
 
   // Create the groups for the treemap.
-  const groups = [
+  const groups: Array<{ name: string; parent: string }> = [
     { name: originNodeId, parent: '' },
     // Add the refIds as parent nodes.
     ...data.series.map((_) => _.refId!).map((refId) => ({ name: refId, parent: originNodeId })),
@@ -102,27 +88,29 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
     ...frames
       .map((fields) => ({
         refId: fields.refId,
-        values: fields.groupBy ? [...new Set(fields.groupBy.values.toArray())] : [],
+        values: fields.groupByField ? [...new Set(fields.groupByField.values.toArray())] : [],
       }))
       .flatMap((_) => _.values!.map((value) => ({ name: value.toString(), parent: _.refId! })))
       .map((_) => ({ ..._, name: JSON.stringify(_) })),
   ];
 
   // Create the nodes for the treemap.
-  const nodes = frames.flatMap((fields) =>
-    Array.from({ length: fields.text?.values.length! }).map(
+  const nodes: TreemapNode[] = frames.flatMap((fields) =>
+    Array.from({ length: fields.textField?.values.length! }).map(
       (_, i): TreemapNode => ({
-        name: fields.text!.values.get(i)!,
-        value: fields.value!.values.get(i)!,
-        parent: fields.groupBy
+        name: fields.textField!.values.get(i)!,
+        parent: fields.groupByField
           ? JSON.stringify({
-              name: fields.groupBy!.values.get(i).toString(),
+              name: fields.groupByField!.values.get(i).toString(),
               parent: fields.refId,
             })
           : originNodeId,
-        textField: fields.text!,
-        sizeField: fields.value!,
-        labelFields: fields.labels!,
+
+        textField: fields.textField,
+        sizeByField: fields.sizeByField,
+        colorByField: fields.colorByField,
+        labelFields: fields.labels,
+
         valueRowIndex: i,
       })
     )
@@ -142,18 +130,21 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
           {root
             .leaves()
             .filter((d) => !(isNaN(d.x0) || isNaN(d.x1) || isNaN(d.y0) || isNaN(d.y1)))
-            .filter((d) => d.data.textField && d.data.sizeField)
+            .filter((d) => d.data.textField && d.data.sizeByField && d.data.colorByField)
             .map((d, i) => {
               const node = d.data;
+              const sizeValue = node.sizeByField!.values.get(node.valueRowIndex!);
+              const colorValue = node.colorByField!.values.get(node.valueRowIndex!);
 
               const innerWidth = d.x1 - d.x0;
               const innerHeight = d.y1 - d.y0;
 
-              const textFitsHorizontally =
-                (measureText(node.name, '12px')?.width ?? 0) + margin.left + margin.right < innerWidth;
+              const textWidth = measureText(node.name, '12px')?.width ?? 0;
+
+              const textFitsHorizontally = textWidth + margin.left + margin.right < innerWidth;
               const textFitsVertically = margin.top + margin.bottom < innerHeight;
               const textFitsInRect = textFitsHorizontally && textFitsVertically;
-              const valueText = getFormattedDisplayValue(node.sizeField!.display!(node.value));
+              const valueText = getFormattedDisplayValue(node.sizeByField!.display!(sizeValue));
               const tooltipContent = (
                 <div>
                   <div>
@@ -161,10 +152,10 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                     <br />
                     {valueText}
                   </div>
-                  {node.valueRowIndex
+                  {node.valueRowIndex !== undefined
                     ? node.labelFields
-                        ?.map((_) => _?.display!(_?.values.get(node.valueRowIndex!)))
-                        .map((_) => getFormattedDisplayValue(_!))
+                        ?.map((_) => _!.display!(_!.values.get(node.valueRowIndex!)))
+                        .map((_) => getFormattedDisplayValue(_))
                         .map((_, key) => (
                           <Badge
                             key={key}
@@ -179,10 +170,6 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                           />
                         ))
                     : null}
-                  {/* Only display badge if the data has been explicitly grouped.
-                  {node.parent !== ungroupedNodeId && node.parent !== originNodeId ? (
-                    <Badge text={JSON.parse(node.parent).name} color="blue" />
-                  ) : null} */}
                 </div>
               );
 
@@ -202,7 +189,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                       );
                       setContextMenuGroups([
                         {
-                          items: node.sizeField!.getLinks!({ valueRowIndex: node.valueRowIndex }).map<MenuItem>(
+                          items: node.sizeByField!.getLinks!({ valueRowIndex: node.valueRowIndex }).map<MenuItem>(
                             (link) => {
                               return {
                                 label: link.title,
@@ -224,7 +211,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                       ry={theme.border.radius.sm}
                       width={innerWidth}
                       height={innerHeight}
-                      fill={node.sizeField!.display!(node.value).color!}
+                      fill={node.colorByField!.display!(colorValue).color!}
                     />
                     {textFitsInRect ? (
                       <text
@@ -293,12 +280,14 @@ interface TreemapBuilderOptions {
 }
 
 type TreemapNode = {
+  // Required
   name: string;
   parent: string;
 
-  value?: number;
+  // Metadata
   textField?: Field<string>;
-  sizeField?: Field<number>;
+  sizeByField?: Field<number>;
+  colorByField?: Field<number>;
   labelFields?: Array<Field<number> | undefined>;
   valueRowIndex?: number;
 };
@@ -323,7 +312,11 @@ const buildTreemap = ({
   // Sum and sort values.
   root
     .sum((d) => {
-      return d.value!;
+      // Only leaves have a row index. We ignore groups for now.
+      if (d.valueRowIndex === undefined) {
+        return 0;
+      }
+      return d.sizeByField!.values.get(d.valueRowIndex!);
     })
     .sort((a, b) => b.value! - a.value!);
 
@@ -347,8 +340,4 @@ const renderContextMenu = (
   };
 
   return <ContextMenu {...contextContentProps} />;
-};
-
-const getFormattedDisplayValue = (displayValue?: DisplayValue): string => {
-  return displayValue ? `${displayValue.prefix ?? ''}${displayValue.text}${displayValue.suffix ?? ''}` : '';
 };
