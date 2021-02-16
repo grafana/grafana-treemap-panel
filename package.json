@@ -28,10 +28,10 @@
     "semver": "^7.3.4"
   },
   "devDependencies": {
-    "@grafana/data": "^7.3.0",
-    "@grafana/runtime": "^7.3.0",
-    "@grafana/toolkit": "^7.3.0",
-    "@grafana/ui": "^7.3.0",
+    "@grafana/data": "latest",
+    "@grafana/runtime": "latest",
+    "@grafana/toolkit": "latest",
+    "@grafana/ui": "latest",
     "@types/d3": "^5.7.2",
     "emotion": "10.0.27"
   },
