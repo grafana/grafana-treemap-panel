@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.8.0 (2021-02-16)
+
+[Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.7.0...v0.8.0)
+
+### Enhancements
+
+- Add option to color by separate field
+- Make dimensions clearable
+- Add fallback panel for unsupported Grafana versions
+- Add wizard for configuring the query
+
 ## 0.7.0 (2020-12-10)
 
 [Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.6.1...v0.7.0)
