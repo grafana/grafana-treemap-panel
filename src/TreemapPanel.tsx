@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import * as d3 from 'd3';
 import { TilingOption } from './types';
-import { getFormattedDisplayValue, measureText } from 'grafana-plugin-support';
+import { getFormattedDisplayValue, measureText, PanelWizard } from 'grafana-plugin-support';
 import { css } from 'emotion';
 
-import { PanelProps, MappingType, ValueMap, RangeMap, ValueMapping, Field, ArrayVector } from '@grafana/data';
-import { useTheme, Badge, ContextMenu, MenuItemsGroup, MenuItem, InfoBox } from '@grafana/ui';
+import {
+  PanelProps,
+  MappingType,
+  ValueMap,
+  RangeMap,
+  ValueMapping,
+  Field,
+  ArrayVector,
+  FieldType,
+} from '@grafana/data';
+import { useTheme, Badge, ContextMenu, MenuItemsGroup, MenuItem } from '@grafana/ui';
 
 import { AdaptiveText } from './AdaptiveText';
 import { TreemapOptions } from 'types';
@@ -50,31 +59,27 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
         labels: options.labelFields?.map((_) => frame.fields.find((f) => f.name === _)) ?? [],
       };
     })
+    // Only use frames with proper fields.
+    .filter((frame) => frame.textField && frame.sizeByField && frame.colorByField)
+    // Apply value mappings to fields.
     .map((frame) => ({
       ...frame,
-      textField: withMappedValues(frame.textField, frame.textField?.config.mappings ?? []),
-      sizeByField: withMappedValues(frame.sizeByField, frame.sizeByField?.config.mappings ?? []),
-      labels: frame.labels.map((_) => withMappedValues(_, _?.config.mappings ?? [])),
-    }))
-    .filter((frame) => frame.textField && frame.sizeByField && frame.colorByField);
+      textField: applyValueMappings(frame.textField),
+      sizeByField: applyValueMappings(frame.sizeByField),
+      labels: frame.labels.map(applyValueMappings),
+    }));
 
   if (frames.length === 0) {
     return (
-      <div style={{ width, height, overflow: 'hidden' }}>
-        <InfoBox
-          title="Unable to graph data"
-          url="https://github.com/marcusolsson/grafana-treemap-panel"
-          severity="error"
-          style={{ width: '100%' }}
-        >
-          <p>
-            Update your query to return at least:
-            <ul style={{ marginLeft: 20, marginTop: 10 }}>
-              <li>A text field</li>
-              <li>A number field</li>
-            </ul>
-          </p>
-        </InfoBox>
+      <div style={{ width, height }}>
+        <PanelWizard
+          schema={[
+            { description: 'Tile label', type: FieldType.string },
+            { description: 'Tile size', type: FieldType.number },
+          ]}
+          fields={data.series.length > 0 ? data.series[0].fields : []}
+          url={'https://github.com/marcusolsson/grafana-treemap-panel'}
+        />
       </div>
     );
   }
@@ -231,10 +236,10 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   );
 };
 
-const withMappedValues = (field: Field | undefined, mappings: ValueMapping[]): Field | undefined => {
+const applyValueMappings = (field?: Field): Field | undefined => {
   if (field) {
     const copy = field?.values.toArray();
-    const values = copy?.map((val) => mapFieldValue(val, mappings));
+    const values = copy?.map((val) => mapFieldValue(val, field.config.mappings ?? []));
     field.values = new ArrayVector(values);
   }
   return field;
