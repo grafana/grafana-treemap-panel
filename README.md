@@ -21,16 +21,22 @@ This section lists the available configuration options for the Treemap panel.
 
 The dimension options determines what fields to use for each dimension of the visualization.
 
-| Option | Description |
-|--------|-------------|
-| _Label by_ | Field to use for the text label. Defaults to the first textual field. All values must be unique. |
-| _Size by_ | Field to use for size. Defaults to the first numeric field. |
-| _Color by_ | Field to use for color. Defaults to the first numeric field. |
-| _Group by_ | Field to group by. |
-| _Additional labels_ | Fields to use as labels in the tooltip. |
+| Option              | Description                                                                                      |
+|---------------------|--------------------------------------------------------------------------------------------------|
+| _Label by_          | Field to use for the text label. Defaults to the first textual field. All values must be unique. |
+| _Size by_           | Field to use for size. Defaults to the first numeric field.                                      |
+| _Color by_          | Field to use for color. Defaults to the first numeric field.                                     |
+| _Group by_          | Field to group by.                                                                               |
+| _Additional labels_ | Fields to use as labels in the tooltip.                                                          |
 
 #### Display
 
-| Option | Description |
-|--------|-------------|
+| Option             | Description                          |
+|--------------------|--------------------------------------|
 | _Tiling algorithm_ | Determines where to make each split. |
+
+### Field options
+
+| Option      | Description                                                                                                 |
+|-------------|-------------------------------------------------------------------------------------------------------------|
+| _Separator_ | Set this value to a non-empty string to create a hierarchy as defined by the path defined by the separator. |

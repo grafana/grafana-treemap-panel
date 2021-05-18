@@ -1,17 +1,24 @@
 import { PanelPlugin, FieldType, FieldConfigProperty } from '@grafana/data';
-import { TreemapOptions } from './types';
+import { TreemapFieldConfig, TreemapOptions } from './types';
 import { TreemapPanel } from './TreemapPanel';
-import { FieldSelectEditor } from 'grafana-plugin-support';
-import { standardOptionsCompat, getPanelPluginOrFallback } from 'grafana-plugin-support';
+import { FieldSelectEditor, standardOptionsCompat, getPanelPluginOrFallback } from 'grafana-plugin-support';
 
 export const plugin = getPanelPluginOrFallback(
   'marcusolsson-treemap-panel',
-  new PanelPlugin<TreemapOptions>(TreemapPanel)
+  new PanelPlugin<TreemapOptions, TreemapFieldConfig>(TreemapPanel)
+    .setNoPadding()
     .useFieldConfig({
+      useCustomConfig: (builder) => {
+        return builder.addTextInput({
+          path: 'separator',
+          name: 'Separator',
+          description: 'Split the field value.',
+          shouldApply: (field) => field.type === FieldType.string,
+        });
+      },
       standardOptions: standardOptionsCompat([
         FieldConfigProperty.Decimals,
         FieldConfigProperty.Unit,
-        FieldConfigProperty.Mappings,
         FieldConfigProperty.Min,
         FieldConfigProperty.Max,
         FieldConfigProperty.Color,
