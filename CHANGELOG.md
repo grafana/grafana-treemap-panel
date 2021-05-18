@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.0 (2021-05-18)
+
+[Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.8.0...v0.9.0)
+
+**Important notice:** I've had to rewrite large parts of the plugins for this release. While I don't anticipate any issues with upgrading from a previous version, please backup your dashboards before upgrading.
+
+### Enhancements
+
+- Hierarchical grouping of data ([#16](https://github.com/marcusolsson/grafana-treemap-panel/pull/16))
+
 ## 0.8.0 (2021-02-16)
 
 [Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.7.0...v0.8.0)
