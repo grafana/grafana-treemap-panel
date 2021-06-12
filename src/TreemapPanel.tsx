@@ -1,13 +1,10 @@
-import React, { useState, MouseEvent } from 'react';
+import { Field, FieldType, PanelProps } from '@grafana/data';
+import { ContextMenu, MenuItem, MenuItemsGroup, useTheme } from '@grafana/ui';
 import { getFormattedDisplayValue, PanelWizard } from 'grafana-plugin-support';
-
-import { PanelProps, FieldType, Field } from '@grafana/data';
-import { ContextMenu, MenuItemsGroup, MenuItem, useTheme } from '@grafana/ui';
-
+import React, { MouseEvent, useState } from 'react';
 import { FrameView, TreemapOptions } from 'types';
-import { TreemapTile } from './TreemapTile';
-
 import { buildHierarchy, buildLayout } from './treemap';
+import { TreemapTile } from './TreemapTile';
 
 interface Props extends PanelProps<TreemapOptions> {}
 

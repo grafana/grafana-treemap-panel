@@ -1,7 +1,7 @@
-import { PanelPlugin, FieldType, FieldConfigProperty } from '@grafana/data';
-import { TreemapFieldConfig, TreemapOptions } from './types';
+import { FieldConfigProperty, FieldType, PanelPlugin } from '@grafana/data';
+import { FieldSelectEditor, getPanelPluginOrFallback, standardOptionsCompat } from 'grafana-plugin-support';
 import { TreemapPanel } from './TreemapPanel';
-import { FieldSelectEditor, standardOptionsCompat, getPanelPluginOrFallback } from 'grafana-plugin-support';
+import { TreemapFieldConfig, TreemapOptions } from './types';
 
 export const plugin = getPanelPluginOrFallback(
   'marcusolsson-treemap-panel',

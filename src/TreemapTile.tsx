@@ -1,13 +1,10 @@
-import React, { MouseEvent } from 'react';
-
-import { useTheme, Badge } from '@grafana/ui';
-import { measureText } from 'grafana-plugin-support';
-import { css, cx } from 'emotion';
-
-// Tippy
+import { Badge, useTheme } from '@grafana/ui';
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import { css, cx } from 'emotion';
+import { measureText } from 'grafana-plugin-support';
+import React, { MouseEvent } from 'react';
 import { followCursor } from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
 interface Props {
   x: number;
