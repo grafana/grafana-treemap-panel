@@ -4,7 +4,7 @@
   "name": "Treemap",
   "id": "marcusolsson-treemap-panel",
   "info": {
-    "description": "Treemap panel for Grafana.",
+    "description": "Area-based visualization of hierarchical data",
     "author": {
       "name": "Marcus Olsson",
       "url": "https://marcus.se.net"
