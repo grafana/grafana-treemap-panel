@@ -25,9 +25,11 @@
   "dependencies": {
     "@tippyjs/react": "^4.0.2",
     "grafana-plugin-support": "0.3.0-alpha.4",
-    "semver": "^7.3.4"
+    "semver": "^7.3.4",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@emotion/core": "10.0.27",
     "@grafana/data": "7.5.7",
     "@grafana/runtime": "7.5.7",
     "@grafana/toolkit": "7.5.7",
