@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.1 (2021-09-01)
+
+[Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.9.0...v0.9.1)
+
+Contains fixes for Grafana 8.
+
 ## 0.9.0 (2021-05-18)
 
 [Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.8.0...v0.9.0)
