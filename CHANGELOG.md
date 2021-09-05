@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.2 (2021-09-05)
+
+[Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.9.1...v0.9.2)
+
+# Bug fixes
+
+- Fix Data Links support for Grafana 8 ([#24](https://github.com/marcusolsson/grafana-treemap-panel/issues/24))
+
 ## 0.9.1 (2021-09-01)
 
 [Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.9.0...v0.9.1)
