@@ -1,10 +1,8 @@
 import { Badge, useTheme } from '@grafana/ui';
-import Tippy from '@tippyjs/react';
 import { css, cx } from 'emotion';
 import { measureText } from 'grafana-plugin-support';
 import React, { MouseEvent } from 'react';
-import { followCursor } from 'tippy.js';
-import 'tippy.js/dist/tippy.css';
+import { Tooltip } from './Tooltip';
 
 interface Props {
   x: number;
@@ -60,7 +58,7 @@ export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick
     </div>
   );
   return (
-    <Tippy content={tooltipContent} followCursor={true} plugins={[followCursor]} animation={false}>
+    <Tooltip content={tooltipContent}>
       <g
         className={cx({
           [css`
@@ -90,6 +88,6 @@ export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick
           </text>
         )}
       </g>
-    </Tippy>
+    </Tooltip>
   );
 };

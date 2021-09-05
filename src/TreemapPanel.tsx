@@ -1,8 +1,9 @@
 import { Field, FieldType, PanelProps } from '@grafana/data';
-import { ContextMenu, MenuItem, MenuItemsGroup, useTheme } from '@grafana/ui';
+import { useTheme } from '@grafana/ui';
 import { getFormattedDisplayValue, PanelWizard } from 'grafana-plugin-support';
 import React, { MouseEvent, useState } from 'react';
 import { FrameView, TreemapOptions } from 'types';
+import { ContextMenu, MenuGroup } from './ContextMenu';
 import { buildHierarchy, buildLayout } from './treemap';
 import { TreemapTile } from './TreemapTile';
 
@@ -17,7 +18,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   // State for context menu.
   const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
   const [contextMenuLabel, setContextMenuLabel] = useState<React.ReactNode | string>('');
-  const [contextMenuGroups, setContextMenuGroups] = useState<MenuItemsGroup[]>([]);
+  const [contextMenuGroups, setContextMenuGroups] = useState<MenuGroup[]>([]);
   const [showContextMenu, setShowContextMenu] = useState(false);
 
   const theme = useTheme();
@@ -68,8 +69,15 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   return (
     <>
-      {showContextMenu &&
-        renderContextMenu(contextMenuPos, contextMenuLabel, contextMenuGroups, () => setShowContextMenu(false))}
+      {showContextMenu && (
+        <ContextMenu
+          x={contextMenuPos.x}
+          y={contextMenuPos.y}
+          onClose={() => setShowContextMenu(false)}
+          renderMenuItems={() => contextMenuGroups}
+          renderHeader={() => contextMenuLabel}
+        />
+      )}
       <svg width={width} height={height}>
         {root.descendants().map((d, i) => {
           // Hide root node.
@@ -100,17 +108,17 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
               setContextMenuLabel(<small>{`${textValue}: ${valueText}`}</small>);
               setContextMenuGroups([
                 {
-                  items: node.frame!.size!.getLinks!({ valueRowIndex: node.frame!.valueRowIndex }).map<MenuItem>(
-                    (link) => {
-                      return {
-                        label: link.title,
-                        url: link.href,
-                        target: link.target,
-                        icon: link.target === '_self' ? 'link' : 'external-link-alt',
-                        onClick: link.onClick,
-                      };
-                    }
-                  ),
+                  label: 'Data links',
+                  items: node.frame!.size!.getLinks!({ valueRowIndex: node.frame!.valueRowIndex }).map((link) => {
+                    return {
+                      label: link.title,
+                      ariaLabel: link.title,
+                      url: link.href,
+                      target: link.target,
+                      icon: link.target === '_self' ? 'link' : 'external-link-alt',
+                      onClick: link.onClick,
+                    };
+                  }),
                 },
               ]);
             };
@@ -150,21 +158,4 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
       </svg>
     </>
   );
-};
-
-const renderContextMenu = (
-  pos: { x: number; y: number },
-  label: React.ReactNode | string,
-  items: MenuItemsGroup[],
-  onClose: () => void
-) => {
-  const contextContentProps = {
-    x: pos.x,
-    y: pos.y,
-    onClose,
-    items,
-    renderHeader: () => label,
-  };
-
-  return <ContextMenu {...contextContentProps} />;
 };
