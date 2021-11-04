@@ -18,7 +18,14 @@ export const Tooltip = ({ content, children }: Props) => {
   const styles = getStyles(theme);
 
   return (
-    <Tippy followCursor={true} plugins={[followCursor]} content={content} animation={false} className={styles.tooltip}>
+    <Tippy
+      maxWidth={'100%'}
+      followCursor={true}
+      plugins={[followCursor]}
+      content={content}
+      animation={false}
+      className={styles.tooltip}
+    >
       {children}
     </Tippy>
   );
