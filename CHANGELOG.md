@@ -1,10 +1,18 @@
 # Changelog
 
+## 1.0.0 (2021-11-19)
+
+[Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.9.3...v1.0.0)
+
+### Enhancements
+
+- Upgrade dependencies
+
 ## 0.9.3 (2021-11-04)
 
 [Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.9.2...v0.9.3)
 
-# Bug fixes
+### Bug fixes
 
 - Fix tooltip overflow for long labels.
 
@@ -12,7 +20,7 @@
 
 [Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.9.1...v0.9.2)
 
-# Bug fixes
+### Bug fixes
 
 - Fix Data Links support for Grafana 8 ([#24](https://github.com/marcusolsson/grafana-treemap-panel/issues/24))
 
