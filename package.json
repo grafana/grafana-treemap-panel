@@ -1,6 +1,6 @@
 {
   "name": "marcusolsson-treemap-panel",
-  "version": "0.9.3",
+  "version": "1.0.0",
   "description": "A panel plugin for Grafana to visualize treemaps",
   "keywords": [
     "grafana",
@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@emotion/core": "10.0.27",
-    "@grafana/data": "8.1.1",
-    "@grafana/runtime": "8.1.1",
-    "@grafana/toolkit": "8.1.1",
-    "@grafana/ui": "8.1.1",
+    "@grafana/data": "8.2.5",
+    "@grafana/runtime": "8.2.5",
+    "@grafana/toolkit": "8.2.5",
+    "@grafana/ui": "8.2.5",
     "@types/d3": "^5.7.2",
     "emotion": "10.0.27"
   },
