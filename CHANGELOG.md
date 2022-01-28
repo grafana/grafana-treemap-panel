@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.0 (2022-01-28)
+
+[Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v1.0.0...v2.0.0)
+
+This release bumps the minimum required Grafana to >=8.0. Grafana 8 introduces a new theming engine for panel plugins.
+
+- If you're running a Grafana version before 8.0, you should stay with v1.0.0.
+- If you're running Grafana 8.0 or above, you should update to v2.0.0.
+
 ## 1.0.0 (2021-11-19)
 
 [Full changelog](https://github.com/marcusolsson/grafana-treemap-panel/compare/v0.9.3...v1.0.0)
