@@ -29,13 +29,12 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@emotion/core": "10.0.27",
-    "@grafana/data": "8.2.5",
-    "@grafana/runtime": "8.2.5",
-    "@grafana/toolkit": "8.2.5",
-    "@grafana/ui": "8.2.5",
-    "@types/d3": "^5.7.2",
-    "emotion": "10.0.27"
+    "@emotion/css": "11.7.1",
+    "@grafana/data": "8.3.4",
+    "@grafana/runtime": "8.3.4",
+    "@grafana/toolkit": "8.3.4",
+    "@grafana/ui": "8.3.4",
+    "@types/d3": "^5.7.2"
   },
   "engines": {
     "node": ">=14"
