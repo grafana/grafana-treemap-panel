@@ -11,6 +11,12 @@ A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
 ![Screenshot](https://github.com/marcusolsson/grafana-treemap-panel/raw/main/src/img/screenshot.png)
 
+## Maintenance
+
+I maintain [several plugins](https://marcus.se.net/projects/) for Grafana. While my employer allows me to spend some time on developing plugins, most of the work happens on evenings and weekends. At the moment, I'm prioritizing fixing bugs and reviewing PRs over introducing new features.
+
+If you'd still like to propose a new feature, [create a new Discussion](https://github.com/marcusolsson/grafana-treemap-panel/discussions/new?category=ideas). While I likely won't be able to work on features myself, I'd be happy to accept pull requests. If you'd like to contribute a feature, please let me know before you start working on it.
+
 ## Configuration
 
 This section lists the available configuration options for the Treemap panel.
