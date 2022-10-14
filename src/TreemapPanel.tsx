@@ -58,7 +58,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
             { description: 'Tile size', type: FieldType.number },
           ]}
           fields={data.series.length > 0 ? data.series[0].fields : []}
-          url={'https://github.com/marcusolsson/grafana-treemap-panel'}
+          url={'https://github.com/grafana/grafana-treemap-panel'}
         />
       </div>
     );
