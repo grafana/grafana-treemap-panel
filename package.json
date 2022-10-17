@@ -18,9 +18,8 @@
   "bugs": "https://github.com/marcusolsson/grafana-treemap-panel/issues",
   "repository": "github:marcusolsson/grafana-treemap-panel",
   "author": {
-    "name": "Marcus Olsson",
-    "email": "marcus.olsson@hey.com",
-    "url": "https://marcus.se.net"
+    "name": "Grafana Labs",    
+    "url": "https://grafana.com"
   },
   "dependencies": {
     "@tippyjs/react": "^4.0.2",
