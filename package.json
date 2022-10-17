@@ -15,8 +15,8 @@
     "sign": "grafana-toolkit plugin:sign"
   },
   "homepage": "https://grafana.com/plugins/marcusolsson-treemap-panel",
-  "bugs": "https://github.com/marcusolsson/grafana-treemap-panel/issues",
-  "repository": "github:marcusolsson/grafana-treemap-panel",
+  "bugs": "https://github.com/grafana/grafana-treemap-panel/issues",
+  "repository": "github:grafana/grafana-treemap-panel",
   "author": {
     "name": "Grafana Labs",    
     "url": "https://grafana.com"
