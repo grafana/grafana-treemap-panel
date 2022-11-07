@@ -7,6 +7,12 @@
 [![License](https://img.shields.io/github/license/marcusolsson/grafana-treemap-panel)](LICENSE)
 [![Twitter](https://img.shields.io/twitter/follow/marcusolsson?color=%231DA1F2&label=twitter&style=plastic)](https://twitter.com/marcusolsson)
 
+> **Maintenance**: As I'm no longer working at Grafana Labs, nor am I using Grafana where I'm at now, **I'm no longer able to actively maintain this plugin**.
+>
+> **Update 1:** I'm exploring ways to keep the project going. Check back here to stay updated!
+>
+> **Update 2:** I'm happy to say that the Grafana team has decided to take over as maintainers of this plugin! 🎉
+
 A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
 ![Screenshot](https://github.com/marcusolsson/grafana-treemap-panel/raw/main/src/img/screenshot.png)
