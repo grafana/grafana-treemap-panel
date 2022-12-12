@@ -6,8 +6,8 @@
   "info": {
     "description": "Area-based visualization of hierarchical data",
     "author": {
-      "name": "Marcus Olsson",
-      "url": "https://marcus.se.net"
+      "name": "Grafana Labs",
+      "url": "https://grafana.com"
     },
     "keywords": ["treemap"],
     "logos": {
@@ -17,11 +17,11 @@
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/marcusolsson/grafana-treemap-panel"
+        "url": "https://github.com/grafana/grafana-treemap-panel"
       },
       {
         "name": "License",
-        "url": "https://github.com/marcusolsson/grafana-treemap-panel/blob/main/LICENSE"
+        "url": "https://github.com/grafana/grafana-treemap-panel/blob/main/LICENSE"
       }
     ],
     "screenshots": [
