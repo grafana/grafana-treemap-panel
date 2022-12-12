@@ -1,15 +1,16 @@
 # Treemap for Grafana
 
-[![Build](https://github.com/marcusolsson/grafana-treemap-panel/workflows/CI/badge.svg)](https://github.com/marcusolsson/grafana-treemap-panel/actions?query=workflow%3A%22CI%22)
-[![Release](https://github.com/marcusolsson/grafana-treemap-panel/workflows/Release/badge.svg)](https://github.com/marcusolsson/grafana-treemap-panel/actions?query=workflow%3ARelease)
+[![Build](https://github.com/grafana/grafana-treemap-panel/workflows/CI/badge.svg)](https://github.com/grafana/grafana-treemap-panel/actions?query=workflow%3A%22CI%22)
+[![Release](https://github.com/grafana/grafana-treemap-panel/workflows/Release/badge.svg)](https://github.com/grafana/grafana-treemap-panel/actions?query=workflow%3ARelease)
 [![Marketplace](https://img.shields.io/badge/dynamic/json?logo=grafana&color=F47A20&label=marketplace&prefix=v&query=%24.items%5B%3F%28%40.slug%20%3D%3D%20%22marcusolsson-treemap-panel%22%29%5D.version&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins)](https://grafana.com/grafana/plugins/marcusolsson-treemap-panel)
 [![Downloads](https://img.shields.io/badge/dynamic/json?logo=grafana&color=F47A20&label=downloads&query=%24.items%5B%3F%28%40.slug%20%3D%3D%20%22marcusolsson-treemap-panel%22%29%5D.downloads&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins)](https://grafana.com/grafana/plugins/marcusolsson-treemap-panel)
-[![License](https://img.shields.io/github/license/marcusolsson/grafana-treemap-panel)](LICENSE)
-[![Twitter](https://img.shields.io/twitter/follow/marcusolsson?color=%231DA1F2&label=twitter&style=plastic)](https://twitter.com/marcusolsson)
+[![License](https://img.shields.io/github/license/grafana/grafana-treemap-panel)](LICENSE)
+
+> **Maintenance**: Now the plugin is being maintained by Grafana Labs. Big thanks to [Marcus Olsson](https://twitter.com/marcusolsson) for the awesome work!
 
 A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
 
-![Screenshot](https://github.com/marcusolsson/grafana-treemap-panel/raw/main/src/img/screenshot.png)
+![Screenshot](https://github.com/grafana/grafana-treemap-panel/raw/main/src/img/screenshot.png)
 
 ## Configuration
 

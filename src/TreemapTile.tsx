@@ -1,5 +1,5 @@
-import { Badge, useTheme } from '@grafana/ui';
-import { css, cx } from 'emotion';
+import { Badge, useTheme2 } from '@grafana/ui';
+import { css, cx } from '@emotion/css';
 import { measureText } from 'grafana-plugin-support';
 import React, { MouseEvent } from 'react';
 import { Tooltip } from './Tooltip';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick, color, opacity }: Props) => {
-  const theme = useTheme();
+  const theme = useTheme2().v1;
 
   const styles = {
     text: css`

@@ -1,5 +1,5 @@
 import { Field, FieldType, PanelProps } from '@grafana/data';
-import { useTheme } from '@grafana/ui';
+import { useTheme2 } from '@grafana/ui';
 import { getFormattedDisplayValue, PanelWizard } from 'grafana-plugin-support';
 import React, { MouseEvent, useState } from 'react';
 import { FrameView, TreemapOptions } from 'types';
@@ -21,7 +21,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
   const [contextMenuGroups, setContextMenuGroups] = useState<MenuGroup[]>([]);
   const [showContextMenu, setShowContextMenu] = useState(false);
 
-  const theme = useTheme();
+  const theme = useTheme2().v1;
 
   const frames: FrameView[] = data.series
     .map((frame) => {
@@ -58,7 +58,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
             { description: 'Tile size', type: FieldType.number },
           ]}
           fields={data.series.length > 0 ? data.series[0].fields : []}
-          url={'https://github.com/marcusolsson/grafana-treemap-panel'}
+          url={'https://github.com/grafana/grafana-treemap-panel'}
         />
       </div>
     );
