@@ -1,6 +1,6 @@
 import { Field, FieldType, PanelProps } from '@grafana/data';
 import { useTheme2 } from '@grafana/ui';
-import { getFormattedDisplayValue, PanelWizard } from 'grafana-plugin-support';
+import { getFormattedDisplayValue, PanelWizard } from './grafana-plugin-support/src';
 import React, { MouseEvent, useState } from 'react';
 import { FrameView, TreemapOptions } from 'types';
 import { ContextMenu, MenuGroup } from './ContextMenu';
@@ -79,7 +79,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
         />
       )}
       <svg width={width} height={height}>
-        {root.descendants().map((d, i) => {
+        {root.descendants().map((d: any, i: any) => {
           // Hide root node.
           if (i === 0) {
             return null;
@@ -98,8 +98,8 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
             const labels =
               node.frame.valueRowIndex !== undefined
                 ? node.frame.labels
-                    ?.map((_) => _!.display!(_!.values.get(node.frame!.valueRowIndex!)))
-                    .map((_) => getFormattedDisplayValue(_))
+                    ?.map((_: any) => _!.display!(_!.values.get(node.frame!.valueRowIndex!)))
+                    .map((_: any) => getFormattedDisplayValue(_))
                 : [];
 
             const onClick = (e: MouseEvent<SVGElement>) => {
@@ -109,7 +109,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
               setContextMenuGroups([
                 {
                   label: 'Data links',
-                  items: node.frame!.size!.getLinks!({ valueRowIndex: node.frame!.valueRowIndex }).map((link) => {
+                  items: node.frame!.size!.getLinks!({ valueRowIndex: node.frame!.valueRowIndex }).map((link: any) => {
                     return {
                       label: link.title,
                       ariaLabel: link.title,
