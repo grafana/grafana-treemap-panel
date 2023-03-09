@@ -1,5 +1,5 @@
 import { FieldConfigProperty, FieldType, PanelPlugin } from '@grafana/data';
-import { FieldSelectEditor, getPanelPluginOrFallback, standardOptionsCompat } from 'grafana-plugin-support';
+import { FieldSelectEditor, getPanelPluginOrFallback, standardOptionsCompat } from './grafana-plugin-support/src';
 import { TreemapPanel } from './TreemapPanel';
 import { TreemapFieldConfig, TreemapOptions } from './types';
 

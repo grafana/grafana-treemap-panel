@@ -1,6 +1,6 @@
 import { Badge, useTheme2 } from '@grafana/ui';
 import { css, cx } from '@emotion/css';
-import { measureText } from 'grafana-plugin-support';
+import { measureText } from './grafana-plugin-support/src';
 import React, { MouseEvent } from 'react';
 import { Tooltip } from './Tooltip';
 
