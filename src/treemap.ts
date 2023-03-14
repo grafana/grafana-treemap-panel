@@ -56,9 +56,9 @@ export const buildHierarchy = (frames: FrameView[]): TreemapNode => {
           prefix.push(group);
         }
 
-        const pathElems = [...prefix, ...path.split(separator)];
+        const pathElements = [...prefix, ...path.split(separator)];
 
-        insertPath(dataset, pathElems[0] === dataset.name ? pathElems.slice(1) : pathElems, value, {
+        insertPath(dataset, pathElements[0] === dataset.name ? pathElements.slice(1) : pathElements, value, {
           ...frame,
           valueRowIndex: index,
         });
@@ -85,17 +85,17 @@ const insertPath = (node: TreemapNode, labelElements: string[], leafValue: numbe
   const child = node.children!.find((child) => child.name === labelElements[0]);
 
   if (!child) {
-    const newchild: TreemapNode = { name: labelElements[0] };
+    const newChild: TreemapNode = { name: labelElements[0] };
 
     // If there's only one elements left, we consider it a leaf node.
     if (labelElements.length === 1) {
-      newchild.value = leafValue;
-      newchild.frame = frame;
+      newChild.value = leafValue;
+      newChild.frame = frame;
     }
 
-    node.children.push(newchild);
+    node.children.push(newChild);
 
-    insertPath(newchild, labelElements.slice(1), leafValue, frame);
+    insertPath(newChild, labelElements.slice(1), leafValue, frame);
   } else {
     insertPath(child, labelElements.slice(1), leafValue, frame);
   }

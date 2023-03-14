@@ -8,7 +8,7 @@
 
 > **Maintenance**: Now the plugin is being maintained by Grafana Labs. Big thanks to [Marcus Olsson](https://twitter.com/marcusolsson) for the awesome work!
 
-A panel plugin for [Grafana](https://grafana.com) to visualize treemaps.
+A panel plugin for [Grafana](https://grafana.com) to visualize tree maps.
 
 ![Screenshot](https://github.com/grafana/grafana-treemap-panel/raw/main/src/img/screenshot.png)
 
