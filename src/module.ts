@@ -4,7 +4,7 @@ import { TreemapPanel } from './TreemapPanel';
 import { TreemapFieldConfig, TreemapOptions } from './types';
 
 export const plugin = getPanelPluginOrFallback(
-  'grafana-treemap-panel',
+  'marcusolsson-treemap-panel',
   new PanelPlugin<TreemapOptions, TreemapFieldConfig>(TreemapPanel)
     .setNoPadding()
     .useFieldConfig({
