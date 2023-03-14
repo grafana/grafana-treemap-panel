@@ -9,7 +9,7 @@ import { gte } from "semver";
 
 /**
  * hasCapability returns true if the currently running version of Grafana
- * supports a given feature. Enables graceful degredation for earlier versions
+ * supports a given feature. Enables graceful degradation for earlier versions
  * that don't support a given capability.
  */
 const hasCapability = (capability: string) => {

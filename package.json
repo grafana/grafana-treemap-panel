@@ -12,7 +12,8 @@
     "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
     "watch": "grafana-toolkit plugin:dev --watch",
-    "sign": "grafana-toolkit plugin:sign"
+    "sign": "grafana-toolkit plugin:sign",
+    "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\""
   },
   "homepage": "https://grafana.com/plugins/marcusolsson-treemap-panel",
   "bugs": "https://github.com/grafana/grafana-treemap-panel/issues",
@@ -29,13 +30,14 @@
     "@grafana/runtime": "9.3.8",
     "@grafana/toolkit": "9.3.8",
     "@grafana/ui": "9.3.8",
-    "semver": "^7.3.8",
-    "tslib": "^2.5.0",
-    "typescript": "^4.9.5",
     "@types/d3": "^5.7.2",
+    "cspell": "6.13.3",
+    "eslint": "<8",
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0",
-    "eslint": "<8"
+    "semver": "^7.3.8",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
   },
   "engines": {
     "node": ">=14"
