@@ -1,11 +1,12 @@
 # Changelog
 
-## 2.0.1 (2022-10-14)
+## 2.0.1 (2023-03-14)
 
 [Full changelog](https://github.com/grafana/grafana-treemap-panel/compare/v2.0.0...v2.0.1)
 
 - Fix broken docs and links.
-
+- Renamed to `grafana-treemap-panel`
+- Updated dependencies
 ## 2.0.0 (2022-01-28)
 
 [Full changelog](https://github.com/grafana/grafana-treemap-panel/compare/v1.0.0...v2.0.0)
