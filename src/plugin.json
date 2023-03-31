@@ -2,7 +2,7 @@
   "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
   "name": "Treemap",
-  "id": "grafana-treemap-panel",
+  "id": "marcusolsson-treemap-panel",
   "info": {
     "description": "Area-based visualization of hierarchical data",
     "author": {
