@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.1 (2023-03-14)
+## 2.0.1 (2023-03-31)
 
 [Full changelog](https://github.com/grafana/grafana-treemap-panel/compare/v2.0.0...v2.0.1)
 
