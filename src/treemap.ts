@@ -29,7 +29,7 @@ export const buildLayout = (
 
   const hierarchy = d3
     .hierarchy(root)
-    .sum((d) => d.value ?? 0)
+    .sum((d) => Math.max(d.value ?? 0, 0))
     .sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
 
   return layout(hierarchy);

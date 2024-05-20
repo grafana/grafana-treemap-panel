@@ -6,6 +6,7 @@ export interface TreemapOptions {
   tiling: TilingOption;
   textField: string;
   sizeField: string;
+  showValues: boolean;
   colorByField: string;
   labelFields: string[];
   groupByField: string;

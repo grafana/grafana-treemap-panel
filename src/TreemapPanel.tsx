@@ -14,6 +14,7 @@ interface Props extends PanelProps<TreemapOptions> {}
  */
 export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) => {
   const { tiling } = options;
+  console.log(options)
 
   // State for context menu.
   const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
@@ -66,7 +67,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const hierarchy = buildHierarchy(frames);
   const root = buildLayout(hierarchy, width, height, tiling);
-
+  console.log(root.descendants())
   return (
     <>
       {showContextMenu && (
@@ -130,6 +131,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
                 y={d.y0}
                 width={d.x1 - d.x0}
                 height={d.y1 - d.y0}
+                showValues={options.showValues}
                 label={node.name}
                 value={valueText}
                 labels={labels ?? []}
@@ -148,6 +150,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
               width={d.x1 - d.x0}
               height={d.y1 - d.y0}
               label={node.name}
+              showValues={options.showValues}
               value={''}
               labels={[]}
               color={theme.colors.text}

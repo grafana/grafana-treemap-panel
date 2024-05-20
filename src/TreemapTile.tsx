@@ -1,6 +1,6 @@
 import { Badge, useTheme2 } from '@grafana/ui';
 import { css, cx } from '@emotion/css';
-import { measureText } from './grafana-plugin-support/src';
+import { measureText} from './grafana-plugin-support/src';
 import React, { MouseEvent } from 'react';
 import { Tooltip } from './Tooltip';
 
@@ -9,6 +9,7 @@ interface Props {
   y: number;
   width: number;
   height: number;
+  showValues: boolean;
   label: string;
   value: string;
   labels: string[];
@@ -17,9 +18,8 @@ interface Props {
   opacity: number;
 }
 
-export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick, color, opacity }: Props) => {
+export const TreemapTile = ({ x, y, width, height, showValues, label, value, labels, onClick, color, opacity }: Props) => {
   const theme = useTheme2().v1;
-
   const styles = {
     text: css`
       font-size: ${theme.typography.size.base};
@@ -33,6 +33,14 @@ export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick
   const textFitsHorizontally = textWidth + margin.left + margin.right < width;
   const textFitsVertically = margin.top + margin.bottom < height;
   const textFitsInRect = textFitsHorizontally && textFitsVertically;
+
+
+  const valueWidth = measureText(value, theme.typography.size.base)?.width ?? 0;
+  const valueFitsHorizontally = valueWidth + margin.left + margin.right < width;
+  const valueFitsVertically = margin.top + margin.bottom < height;
+  const valueFitsInRect = valueFitsHorizontally && valueFitsVertically;
+
+  console.log(`width: ${width}, valueWidth: ${valueWidth}, valueFitsInRect: ${valueFitsInRect}, margins: ${margin.left + margin.right}, showValues: ${showValues}`)
 
   const tooltipContent = (
     <div>
@@ -85,6 +93,16 @@ export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick
             fill={opacity < 1 ? theme.colors.text : theme.colors.panelBg}
           >
             {label}
+          </text>
+        )}
+        {valueFitsInRect && (
+          <text
+            className={styles.text}
+            x={x +((width/2)-(valueWidth/2)) + margin.left}
+            y={y + (height/2)} // ignoring font height as the difference is negligable
+            fill={opacity < 1 ? theme.colors.text : theme.colors.panelBg}
+          >
+           {showValues && value}
           </text>
         )}
       </g>
