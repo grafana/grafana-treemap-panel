@@ -96,6 +96,10 @@ export const plugin = getPanelPluginOrFallback(
           settings: {
             multi: true,
           },
+        })
+        .addBooleanSwitch({
+          path: 'showValues',
+          name: 'Show values in cells'
         });
     })
 );
