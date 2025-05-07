@@ -3,8 +3,7 @@ import { FieldSelectEditor, getPanelPluginOrFallback, standardOptionsCompat } fr
 import { TreemapPanel } from './TreemapPanel';
 import { TreemapFieldConfig, TreemapOptions } from './types';
 
-export const plugin = getPanelPluginOrFallback(
-  'marcusolsson-treemap-panel',
+export const plugin = 
   new PanelPlugin<TreemapOptions, TreemapFieldConfig>(TreemapPanel)
     .setNoPadding()
     .useFieldConfig({
@@ -97,5 +96,5 @@ export const plugin = getPanelPluginOrFallback(
             multi: true,
           },
         });
-    })
+    }
 );
