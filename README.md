@@ -140,7 +140,7 @@ If the plugin is using the github actions supplied with `@grafana/create-plugin`
 
 To trigger the workflow we need to push a version tag to github. This can be achieved with the following steps:
 
-1. Run `npm version <major|minor|patch>`
+1. Run `yarn version <major|minor|patch>`
 2. Run `git push origin main --follow-tags`
 
 ## Learn more
