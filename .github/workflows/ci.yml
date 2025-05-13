@@ -53,13 +53,6 @@ jobs:
             echo "has-e2e=true" >> $GITHUB_OUTPUT
           fi
 
-      - id: get-secrets
-        uses: grafana/shared-workflows/actions/get-vault-secrets@get-vault-secrets-v1.2.0
-        with:
-          # Secrets placed in the ci/common/<path> path in Vault
-          common_secrets: |
-            GRAFANA_ACCESS_POLICY_TOKEN=plugins/sign-plugin-access-policy-token:token
-
       - name: Sign plugin
         run: yarn run sign
         if: ${{ env.GRAFANA_ACCESS_POLICY_TOKEN != '' }}

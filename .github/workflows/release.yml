@@ -16,17 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - id: get-secrets
-        uses: grafana/shared-workflows/actions/get-vault-secrets@get-vault-secrets-v1.2.0
+      - name: Setup plugin signing
+        uses: grafana/shared-workflows/actions/get-vault-secrets@974c33049d0967c5c9cfc249fe675daf341dc78f # main
         with:
-          # Secrets placed in the ci/common/<path> path in Vault
+          vault_instance: ops
           common_secrets: |
-            GRAFANA_ACCESS_POLICY_TOKEN=plugins/sign-plugin-access-policy-token:token
+            SIGN_PLUGIN_ACCESS_POLICY_TOKEN=plugins/sign-plugin-access-policy-token:token
       - uses: grafana/plugin-actions/build-plugin@main
         # Uncomment to enable plugin signing
         # (For more info on how to generate the access policy token see https://grafana.com/developers/plugin-tools/publish-a-plugin/sign-a-plugin#generate-an-access-policy-token)
         with:
           # Make sure to save the token in your repository secrets
-          policy_token: ${{ env.GRAFANA_ACCESS_POLICY_TOKEN }}
+          policy_token: ${{ env.SIGN_PLUGIN_ACCESS_POLICY_TOKEN }}
         # Usage of GRAFANA_API_KEY is deprecated, prefer `policy_token` option above
           #grafana_token: ${{ secrets.GRAFANA_API_KEY }}
