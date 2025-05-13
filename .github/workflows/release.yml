@@ -13,10 +13,12 @@ jobs:
   release:
     permissions:
       contents: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup plugin signing
+      - id: get-secrets
+        name: Setup plugin signing
         uses: grafana/shared-workflows/actions/get-vault-secrets@974c33049d0967c5c9cfc249fe675daf341dc78f # main
         with:
           vault_instance: ops
