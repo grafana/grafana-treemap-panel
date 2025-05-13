@@ -1,6 +1,12 @@
 {
-  "name": "tree-map",
-  "version": "1.0.0",
+  "name": "marcusolsson-treemap-panel",
+  "version": "2.1.0",
+  "description": "A panel plugin for Grafana to visualize treemaps",
+  "keywords": [
+    "grafana",
+    "treemap"
+  ],
+  "license": "Apache-2.0",  
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
@@ -13,8 +19,13 @@
     "server": "docker compose up --build",
     "sign": "npx --yes @grafana/sign-plugin@latest"
   },
-  "author": "Grafana",
-  "license": "Apache-2.0",
+  "homepage": "https://grafana.com/plugins/marcusolsson-treemap-panel",
+  "bugs": "https://github.com/grafana/grafana-treemap-panel/issues",
+  "repository": "github:grafana/grafana-treemap-panel",
+  "author": {
+    "name": "Grafana Labs",
+    "url": "https://grafana.com"
+  },  
   "devDependencies": {
     "@grafana/eslint-config": "^8.0.0",
     "@grafana/plugin-e2e": "^2.0.2",
