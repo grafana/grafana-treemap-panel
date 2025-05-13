@@ -25,7 +25,7 @@
   "author": {
     "name": "Grafana Labs",
     "url": "https://grafana.com"
-  },  
+  },
   "devDependencies": {
     "@grafana/eslint-config": "^8.0.0",
     "@grafana/plugin-e2e": "^2.0.2",
