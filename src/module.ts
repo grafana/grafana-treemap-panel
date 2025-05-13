@@ -1,9 +1,9 @@
 import { FieldConfigProperty, FieldType, PanelPlugin } from '@grafana/data';
-import { FieldSelectEditor, getPanelPluginOrFallback, standardOptionsCompat } from './grafana-plugin-support/src';
+import { FieldSelectEditor, standardOptionsCompat } from './grafana-plugin-support/src';
 import { TreemapPanel } from './TreemapPanel';
 import { TreemapFieldConfig, TreemapOptions } from './types';
 
-export const plugin = 
+export const plugin =
   new PanelPlugin<TreemapOptions, TreemapFieldConfig>(TreemapPanel)
     .setNoPadding()
     .useFieldConfig({
@@ -97,4 +97,4 @@ export const plugin =
           },
         });
     }
-);
+    );
