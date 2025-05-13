@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
   "name": "Treemap",
   "id": "marcusolsson-treemap-panel",
@@ -32,5 +32,9 @@
     ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">8"
   }
+
 }
