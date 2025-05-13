@@ -30,7 +30,6 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@grafana/toolkit": "9.4.3",
     "@types/d3": "^5.7.2",
     "cspell": "6.13.3",
     "eslint": "<8",
