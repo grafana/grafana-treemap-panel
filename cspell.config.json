@@ -24,5 +24,5 @@
     // ignore single line imports
     "import\\s*.*\".*?\""
   ],
-  "words": ["grafana", "datasource", "datasources", "treemap", "tippyjs", "squarify", "marcusolsson", "Olsson", "acmecorp"]
+  "words": ["grafana", "datasource", "datasources", "treemap", "tippyjs", "squarify", "marcusolsson", "Olsson", "acmecorp", "polystat", "volkovlabs"]
 }
