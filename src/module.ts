@@ -3,7 +3,7 @@ import { FieldSelectEditor, standardOptionsCompat } from './grafana-plugin-suppo
 import { TreemapPanel } from './TreemapPanel';
 import { TreemapFieldConfig, TreemapOptions } from './types';
 
-export const plugin = 
+export const plugin =
   new PanelPlugin<TreemapOptions, TreemapFieldConfig>(TreemapPanel)
     .setNoPadding()
     .useFieldConfig({
@@ -97,4 +97,4 @@ export const plugin =
           },
         });
     }
-);
+    );

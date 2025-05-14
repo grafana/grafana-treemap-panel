@@ -1,6 +1,6 @@
 // Derived from https://github.com/marcusolsson/grafana-plugin-support
 
-import { ArrayVector, Field, FieldType } from "@grafana/data";
+import { Field, FieldType } from "@grafana/data";
 import { validateFields } from "./PanelWizard";
 
 describe("Validate fields", () => {
@@ -9,13 +9,13 @@ describe("Validate fields", () => {
       {
         name: "Time",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Value",
         type: FieldType.number,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
     ];
@@ -33,13 +33,13 @@ describe("Validate fields", () => {
       {
         name: "Time",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Value",
         type: FieldType.number,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
     ];
@@ -58,13 +58,13 @@ describe("Validate fields", () => {
       {
         name: "Time",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Value",
         type: FieldType.string,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
     ];
@@ -83,19 +83,19 @@ describe("Validate fields", () => {
       {
         name: "Value",
         type: FieldType.string,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Start",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "End",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
     ];
@@ -119,13 +119,13 @@ describe("Validate fields", () => {
       {
         name: "Value",
         type: FieldType.string,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Start",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
     ];
@@ -158,31 +158,31 @@ describe("Validate fields", () => {
       {
         name: "Value",
         type: FieldType.string,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Start",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Value",
         type: FieldType.string,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Value",
         type: FieldType.number,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
       {
         name: "Start",
         type: FieldType.time,
-        values: new ArrayVector(),
+        values: [],
         config: {},
       },
     ];

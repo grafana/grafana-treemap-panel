@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import { GrafanaTheme2 } from '@grafana/data';
 import { useStyles2 } from '@grafana/ui';
-import Tippy from '@tippyjs/react';
+import Tippy from 'rb-tippyjs-react';
 import React from 'react';
 import { followCursor } from 'tippy.js';
 

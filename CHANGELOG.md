@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 (2025-05-13)
+
+[Full changelog](https://github.com/grafana/grafana-treemap-panel/compare/v2.0.1...v2.1.0)
+
+- Fix an issue where the panel would not initialize for anonymous users
+
 ## 2.0.1 (2023-03-31)
 
 [Full changelog](https://github.com/grafana/grafana-treemap-panel/compare/v2.0.0...v2.0.1)
