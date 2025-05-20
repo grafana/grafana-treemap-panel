@@ -8,42 +8,7 @@
 <!-- [![Marketplace](https://img.shields.io/badge/dynamic/json?logo=grafana&color=F47A20&label=marketplace&prefix=v&query=%24.items%5B%3F%28%40.slug%20%3D%3D%20%22marcusolsson-treemap-panel%22%29%5D.version&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins)](https://grafana.com/grafana/plugins/marcusolsson-treemap-panel) -->
 <!-- [![Downloads](https://img.shields.io/badge/dynamic/json?logo=grafana&color=F47A20&label=downloads&query=%24.items%5B%3F%28%40.slug%20%3D%3D%20%22marcusolsson-treemap-panel%22%29%5D.downloads&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins)](https://grafana.com/grafana/plugins/marcusolsson-treemap-panel) -->
 
-> **Maintenance**: Now the plugin is being maintained by Grafana Labs. Big thanks to [Marcus Olsson](https://twitter.com/marcusolsson) for the awesome work!
-
-A panel plugin for [Grafana](https://grafana.com) to visualize tree maps.
-
-![Screenshot](https://github.com/grafana/grafana-treemap-panel/raw/main/src/img/screenshot.png)
-
-## Configuration
-
-This section lists the available configuration options for the Treemap panel.
-
-### Panel options
-
-#### Dimensions
-
-The dimension options determines what fields to use for each dimension of the visualization.
-
-| Option              | Description                                                                                      |
-|---------------------|--------------------------------------------------------------------------------------------------|
-| _Label by_          | Field to use for the text label. Defaults to the first textual field. All values must be unique. |
-| _Size by_           | Field to use for size. Defaults to the first numeric field.                                      |
-| _Color by_          | Field to use for color. Defaults to the first numeric field.                                     |
-| _Group by_          | Field to group by.                                                                               |
-| _Additional labels_ | Fields to use as labels in the tooltip.                                                          |
-
-#### Display
-
-| Option             | Description                          |
-|--------------------|--------------------------------------|
-| _Tiling algorithm_ | Determines where to make each split. |
-
-### Field options
-
-| Option      | Description                                                                                                 |
-|-------------|-------------------------------------------------------------------------------------------------------------|
-| _Separator_ | Set this value to a non-empty string to create a hierarchy as defined by the path defined by the separator. |
-
+More details about this plugin are available in the [README.md](./src/README.md) file, that gets published [here](https://grafana.com/grafana/plugins/marcusolsson-treemap-panel/?tab=overview).
 
 ## Development
 
@@ -106,49 +71,24 @@ The dimension options determines what fields to use for each dimension of the vi
    yarn lint:fix
    ```
 
-# Distributing your plugin
+# Using Github actions "publish" workflow
 
-When distributing a Grafana plugin either within the community or privately the plugin must be signed so the Grafana application can verify its authenticity. This can be done with the `@grafana/sign-plugin` package.
+## Publish ([Plugins - CD](https://github.com/grafana/grafana-treemap-panel/actions/workflows/publish.yml))
 
-_Note: It's not necessary to sign a plugin during development. The docker development environment that is scaffolded with `@grafana/create-plugin` caters for running the plugin without a signature._
+1. Update the version
+   - e.g, run `yarn version <major|minor|patch>`
+1. Update the [CHANGELOG](./CHANGELOG.md)
+1. Commit and push changes, merge to `main`
+1. Release and test plugin for `dev` environments:
+   - Go to [Plugins - CD](https://github.com/grafana/grafana-treemap-panel/actions/workflows/publish.yml) and "Run workflow"
+     - Leave "use workflow from" as `main`
+     - Choose `dev` as the environment to publish to
+     - Choose `main` as the branch to publish from
+     - It is possible to choose a PR for an earlier test on `dev`
+   - Manually test Evaluate the plugin from a dev environment
+1. Release and plugin for `prod` environments:
+   - Go to [Plugins - CD](https://github.com/grafana/grafana-treemap-panel/actions/workflows/publish.yml) and "Run workflow"
+     - Leave "use workflow from" as `main`
+     - Choose `prod` as the environment to publish to
+     - Choose `main` as the branch to publish from
 
-## Initial steps
-
-Before signing a plugin please read the Grafana [plugin publishing and signing criteria](https://grafana.com/legal/plugins/#plugin-publishing-and-signing-criteria) documentation carefully.
-
-`@grafana/create-plugin` has added the necessary commands and workflows to make signing and distributing a plugin via the grafana plugins catalog as straightforward as possible.
-
-Before signing a plugin for the first time please consult the Grafana [plugin signature levels](https://grafana.com/legal/plugins/#what-are-the-different-classifications-of-plugins) documentation to understand the differences between the types of signature level.
-
-1. Create a [Grafana Cloud account](https://grafana.com/signup).
-2. Make sure that the first part of the plugin ID matches the slug of your Grafana Cloud account.
-   - _You can find the plugin ID in the `plugin.json` file inside your plugin directory. For example, if your account slug is `acmecorp`, you need to prefix the plugin ID with `acmecorp-`._
-3. Create a Grafana Cloud API key with the `PluginPublisher` role.
-4. Keep a record of this API key as it will be required for signing a plugin
-
-## Signing a plugin
-
-### Using Github actions release workflow
-
-If the plugin is using the github actions supplied with `@grafana/create-plugin` signing a plugin is included out of the box. The [release workflow](./.github/workflows/release.yml) can prepare everything to make submitting your plugin to Grafana as easy as possible. Before being able to sign the plugin however a secret needs adding to the Github repository.
-
-1. Please navigate to "settings > secrets > actions" within your repo to create secrets.
-2. Click "New repository secret"
-3. Name the secret "GRAFANA_API_KEY"
-4. Paste your Grafana Cloud API key in the Secret field
-5. Click "Add secret"
-
-#### Push a version tag
-
-To trigger the workflow we need to push a version tag to github. This can be achieved with the following steps:
-
-1. Run `yarn version <major|minor|patch>`
-2. Run `git push origin main --follow-tags`
-
-## Learn more
-
-Below you can find source code for existing app plugins and other related documentation.
-
-- [Basic panel plugin example](https://github.com/grafana/grafana-plugin-examples/tree/master/examples/panel-basic#readme)
-- [`plugin.json` documentation](https://grafana.com/developers/plugin-tools/reference/plugin-json)
-- [How to sign a plugin?](https://grafana.com/developers/plugin-tools/publish-a-plugin/sign-a-plugin)

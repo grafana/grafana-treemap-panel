@@ -2,49 +2,44 @@
 
 Remove any remaining comments before publishing as these may be displayed on Grafana.com -->
 
-# Tree Map
+# Treemap for Grafana
 
-<!-- To help maximize the impact of your README and improve usability for users, we propose the following loose structure:
+[![CI](https://github.com/grafana/grafana-treemap-panel/actions/workflows/push.yml/badge.svg)](https://github.com/grafana/grafana-treemap-panel/actions/workflows/push.yml)
+[![CD](https://github.com/grafana/grafana-treemap-panel/actions/workflows/publish.yml/badge.svg)](https://github.com/grafana/grafana-treemap-panel/actions/workflows/publish.yml)
+[![License](https://img.shields.io/github/license/grafana/grafana-treemap-panel)](LICENSE)
 
-**BEFORE YOU BEGIN**
-- Ensure all links are absolute URLs so that they will work when the README is displayed within Grafana and Grafana.com
-- Be inspired ✨
-  - [grafana-polystat-panel](https://github.com/grafana/grafana-polystat-panel)
-  - [volkovlabs-variable-panel](https://github.com/volkovlabs/volkovlabs-variable-panel)
+> **Maintenance**: Now the plugin is being maintained by Grafana Labs. Big thanks to [Marcus Olsson](https://twitter.com/marcusolsson) for the awesome work!
 
-**ADD SOME BADGES**
+A panel plugin for [Grafana](https://grafana.com) to visualize tree maps.
 
-Badges convey useful information at a glance for users whether in the Catalog or viewing the source code. You can use the generator on [Shields.io](https://shields.io/badges/dynamic-json-badge) together with the Grafana.com API
-to create dynamic badges that update automatically when you publish a new version to the marketplace.
+![Screenshot](https://github.com/grafana/grafana-treemap-panel/raw/main/src/img/screenshot.png)
 
-- For the URL parameter use `https://grafana.com/api/plugins/your-plugin-id`.
-- Example queries:
-  - Downloads: `$.downloads`
-  - Catalog Version: `$.version`
-  - Grafana Dependency: `$.grafanaDependency`
-  - Signature Type: `$.versionSignatureType`
-- Optionally, for the logo parameter use `grafana`.
+## Configuration
 
-Full example: ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?logo=grafana&query=$.version&url=https://grafana.com/api/plugins/grafana-polystat-panel&label=Marketplace&prefix=v&color=F47A20)
+This section lists the available configuration options for the Treemap panel.
 
-Consider other [badges](https://shields.io/badges) as you feel appropriate for your project.
+### Panel options
 
-## Overview / Introduction
-Provide one or more paragraphs as an introduction to your plugin to help users understand why they should use it.
+#### Dimensions
 
-Consider including screenshots:
-- in [plugin.json](https://grafana.com/developers/plugin-tools/reference/plugin-json#info) include them as relative links.
-- in the README ensure they are absolute URLs.
+The dimension options determines what fields to use for each dimension of the visualization.
 
-## Requirements
-List any requirements or dependencies they may need to run the plugin.
+| Option              | Description                                                                                      |
+|---------------------|--------------------------------------------------------------------------------------------------|
+| _Label by_          | Field to use for the text label. Defaults to the first textual field. All values must be unique. |
+| _Size by_           | Field to use for size. Defaults to the first numeric field.                                      |
+| _Color by_          | Field to use for color. Defaults to the first numeric field.                                     |
+| _Group by_          | Field to group by.                                                                               |
+| _Additional labels_ | Fields to use as labels in the tooltip.                                                          |
 
-## Getting Started
-Provide a quick start on how to configure and use the plugin.
+#### Display
 
-## Documentation
-If your project has dedicated documentation available for users, provide links here. For help in following Grafana's style recommendations for technical documentation, refer to our [Writer's Toolkit](https://grafana.com/docs/writers-toolkit/).
+| Option             | Description                          |
+|--------------------|--------------------------------------|
+| _Tiling algorithm_ | Determines where to make each split. |
 
-## Contributing
-Do you want folks to contribute to the plugin or provide feedback through specific means? If so, tell them how!
--->
+### Field options
+
+| Option      | Description                                                                                                 |
+|-------------|-------------------------------------------------------------------------------------------------------------|
+| _Separator_ | Set this value to a non-empty string to create a hierarchy as defined by the path defined by the separator. |
