@@ -12,8 +12,15 @@ import { gte } from "semver";
  * supports a given feature. Enables graceful degradation for earlier versions
  * that don't support a given capability.
  */
-const hasCapability = (capability: string) => {
+const hasCapability = (capability: string): boolean => {
   const version = config.buildInfo.version;
+
+  // NOTE: When `[auth.anonymous]` config has `enabled=true` AND `hide_version=true`
+  //       the Grafana version will be redacted, causing semver checks to throw.
+  if (version === "") {
+    return false;
+  }
+
   switch (capability) {
     case "color-scheme":
       return gte(version, "7.3.0");
