@@ -16,30 +16,27 @@ A panel plugin for [Grafana](https://grafana.com) to visualize tree maps.
 
 ## Configuration
 
-This section lists the available configuration options for the Treemap panel.
+This section lists the available configuration options that are specific to the Treemap panel.
+For common configuration options, refer to the [Grafana visualizations configuration documentation](https://grafana.com/docs/grafana/latest/panels-visualizations/).
 
-### Panel options
+### Treemap
 
-#### Dimensions
-
-The dimension options determines what fields to use for each dimension of the visualization.
-
-| Option              | Description                                                                                      |
-|---------------------|--------------------------------------------------------------------------------------------------|
-| _Label by_          | Field to use for the text label. Defaults to the first textual field. All values must be unique. |
-| _Size by_           | Field to use for size. Defaults to the first numeric field.                                      |
-| _Color by_          | Field to use for color. Defaults to the first numeric field.                                     |
-| _Group by_          | Field to group by.                                                                               |
-| _Additional labels_ | Fields to use as labels in the tooltip.                                                          |
-
-#### Display
+The treemap options control the display of the data.
 
 | Option             | Description                          |
 |--------------------|--------------------------------------|
-| _Tiling algorithm_ | Determines where to make each split. |
+| Tiling algorithm | Determines where to make each split. |
+| Separator | Set this value to a non-empty string to create a hierarchy as defined by the path defined by the separator. |
 
-### Field options
+### Dimensions
 
-| Option      | Description                                                                                                 |
-|-------------|-------------------------------------------------------------------------------------------------------------|
-| _Separator_ | Set this value to a non-empty string to create a hierarchy as defined by the path defined by the separator. |
+The dimension options determine which fields to use for each dimension of the visualization.
+
+| Option              | Description                                                                                      |
+|---------------------|--------------------------------------------------------------------------------------------------|
+| Label by          | Field to use for the text label. Defaults to the first textual field. All values must be unique. |
+| Size by          | Field to use for size. Defaults to the first numeric field.                                      |
+| Color by          | Field to use for color. Defaults to the first numeric field.                                     |
+| Group by          | Field to group by.                                                                               |
+| Additional labels | Fields to use as labels in the tooltip.                                                          |
+
