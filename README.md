@@ -14,6 +14,12 @@ More details about this plugin are available in the [README.md](./src/README.md)
 
 ### Frontend
 
+> [!IMPORTANT]
+> Prerequisites
+>
+> - [Yarn](https://yarnpkg.com)
+> - [Docker](https://www.docker.com)
+
 1. Install dependencies
 
    ```bash
@@ -61,7 +67,19 @@ More details about this plugin are available in the [README.md](./src/README.md)
    yarn e2e
    ```
 
-7. Run the linter
+7. Update the E2E screenshots (using Playwright)
+
+```bash
+yarn server
+
+yarn e2e:update-screenshots
+```
+
+> [!WARNING]
+> Screenshots guard against visual regression of the Treemap visualizations.
+> Please verify screenshot pixel diffs _before_ updating.
+
+8. Run the linter
 
    ```bash
    yarn lint
@@ -91,4 +109,3 @@ More details about this plugin are available in the [README.md](./src/README.md)
      - Leave "use workflow from" as `main`
      - Choose `prod` as the environment to publish to
      - Choose `main` as the branch to publish from
-
