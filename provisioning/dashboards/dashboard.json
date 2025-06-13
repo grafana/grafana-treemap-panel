@@ -20,16 +20,34 @@
   "graphTooltip": 0,
   "id": 1,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "grafana-testdata-datasource",
         "uid": "trlxrdZVk"
       },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 8,
         "x": 0,
         "y": 0
       },
@@ -37,39 +55,10 @@
       "options": {
         "seriesCountSize": "sm",
         "showSeriesCount": false,
-        "text": "Default value of text input option"
+        "text": "Default value of text input option",
+        "tiling": "treemapSquarify"
       },
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-testdata-datasource",
-            "uid": "db84e60d-b92a-4089-82cb-34842fb1754b"
-          },
-          "refId": "A",
-          "scenarioId": "raw_frame",
-          "rawFrameContent": "[\n  {\n    \"columns\": [\n      {\n        \"text\": \"Time\",\n        \"type\": \"time\"\n      },\n      {\n        \"text\": \"Label\",\n        \"type\": \"string\"\n      },\n      {\n        \"text\": \"Value\",\n        \"type\": \"number\"\n      }\n    ],\n    \"rows\": [\n      [1609459200000, \"A\", 10],\n      [1609462800000, \"B\", 20],\n      [1609466400000, \"C\", 15],\n      [1609470000000, \"D\", 25],\n      [1609473600000, \"E\", 30]\n    ]\n  },\n{\n    \"columns\": [\n      {\n        \"text\": \"Time\",\n        \"type\": \"time\"\n      },\n      {\n        \"text\": \"Label\",\n        \"type\": \"string\"\n      },\n      {\n        \"text\": \"Value\",\n        \"type\": \"number\"\n      }\n    ],\n    \"rows\": [\n      [1609459200000, \"A\", 40],\n      [1609462800000, \"B\", 50],\n      [1609466400000, \"C\", 45],\n      [1609470000000, \"D\", 55],\n      [1609473600000, \"E\", 60]\n    ]\n  }\n]"
-        }
-      ],
-      "title": "Sample Panel Title",
-      "type": "marcusolsson-treemap-panel"
-    },
-    {
-      "datasource": {
-        "type": "grafana-testdata-datasource",
-        "uid": "trlxrdZVk"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "seriesCountSize": "sm",
-        "showSeriesCount": false,
-        "text": "Default value of text input option"
-      },
+      "pluginVersion": "2.1.1",
       "targets": [
         {
           "alias": "",
@@ -81,12 +70,273 @@
           "scenarioId": "no_data_points"
         }
       ],
-      "title": "Sample Panel Title",
+      "title": "Unconfigured panel",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "trlxrdZVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "groupByField": "Group",
+        "seriesCountSize": "sm",
+        "showSeriesCount": false,
+        "text": "Default value of text input option",
+        "tiling": "treemapBinary"
+      },
+      "pluginVersion": "2.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "db84e60d-b92a-4089-82cb-34842fb1754b"
+          },
+          "rawFrameContent": "[\n  {\n    \"columns\": [\n      {\n        \"text\": \"Time\",\n        \"type\": \"time\"\n      },\n      {\n        \"text\": \"Label\",\n        \"type\": \"string\"\n      },\n      {\n        \"text\": \"Value\",\n        \"type\": \"number\"\n      },\n      {\n        \"text\": \"Group\",\n        \"type\": \"string\"\n      }\n    ],\n    \"rows\": [\n      [1609459200000, \"A\", 100, \"1\"],\n      [1609462800000, \"B\", 50, \"1\"],\n      [1609466400000, \"C\", 25, \"1\"],\n      [1609470000000, \"D\", 12.5, \"1\"],\n      [1609473600000, \"E\", 6.25, \"1\"],\n      [160947720000000, \"F\", 3.125, \"1\"],\n      [160947720000000, \"G\", 1, \"1\"],\n      [160947720000000, \"H\", 0.5, \"1\"],\n      [160947720000000, \"I\", 0.1, \"1\"],\n      [160947720000000, \"J\", 0.05, \"1\"],\n\n      [1609459200000, \"AA\", 50, \"2\"],\n      [1609459200000, \"BB\", 50, \"2\"],\n\n      [1609459200000, \"AAA\", 1, \"3\"],\n      [1609459200000, \"BBB\", 1, \"3\"],\n\n      [1609459200000, \"AAAA\", null, \"4\"]\n    ]\n  }\n]",
+          "refId": "A",
+          "scenarioId": "raw_frame"
+        }
+      ],
+      "title": "Binary tiled panel",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "trlxrdZVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "groupByField": "Group",
+        "seriesCountSize": "sm",
+        "showSeriesCount": false,
+        "text": "Default value of text input option",
+        "tiling": "treemapDice"
+      },
+      "pluginVersion": "2.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "db84e60d-b92a-4089-82cb-34842fb1754b"
+          },
+          "rawFrameContent": "[\n  {\n    \"columns\": [\n      {\n        \"text\": \"Time\",\n        \"type\": \"time\"\n      },\n      {\n        \"text\": \"Label\",\n        \"type\": \"string\"\n      },\n      {\n        \"text\": \"Value\",\n        \"type\": \"number\"\n      },\n      {\n        \"text\": \"Group\",\n        \"type\": \"string\"\n      }\n    ],\n    \"rows\": [\n      [1609459200000, \"A\", 100, \"1\"],\n      [1609462800000, \"B\", 50, \"1\"],\n      [1609466400000, \"C\", 25, \"1\"],\n      [1609470000000, \"D\", 12.5, \"1\"],\n      [1609473600000, \"E\", 6.25, \"1\"],\n      [160947720000000, \"F\", 3.125, \"1\"],\n      [160947720000000, \"G\", 1, \"1\"],\n      [160947720000000, \"H\", 0.5, \"1\"],\n      [160947720000000, \"I\", 0.1, \"1\"],\n      [160947720000000, \"J\", 0.05, \"1\"],\n\n      [1609459200000, \"AA\", 50, \"2\"],\n      [1609459200000, \"BB\", 50, \"2\"]\n    ]\n  }\n]",
+          "refId": "A",
+          "scenarioId": "raw_frame"
+        }
+      ],
+      "title": "Dice tiled panel",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "trlxrdZVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlPu"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "groupByField": "Group",
+        "seriesCountSize": "sm",
+        "showSeriesCount": false,
+        "text": "Default value of text input option",
+        "tiling": "treemapSlice"
+      },
+      "pluginVersion": "2.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "db84e60d-b92a-4089-82cb-34842fb1754b"
+          },
+          "rawFrameContent": "[\n  {\n    \"columns\": [\n      {\n        \"text\": \"Time\",\n        \"type\": \"time\"\n      },\n      {\n        \"text\": \"Label\",\n        \"type\": \"string\"\n      },\n      {\n        \"text\": \"Value\",\n        \"type\": \"number\"\n      },\n      {\n        \"text\": \"Group\",\n        \"type\": \"string\"\n      }\n    ],\n    \"rows\": [\n      [1609459200000, \"A\", 100, \"1\"],\n      [1609462800000, \"B\", 50, \"1\"],\n      [1609466400000, \"C\", 25, \"1\"],\n      [1609470000000, \"D\", 12.5, \"1\"],\n      [1609473600000, \"E\", 6.25, \"1\"],\n      [160947720000000, \"F\", 3.125, \"1\"],\n      [160947720000000, \"G\", 1, \"1\"],\n      [160947720000000, \"H\", 0.5, \"1\"],\n      [160947720000000, \"I\", 0.1, \"1\"],\n      [160947720000000, \"J\", 0.05, \"1\"],\n\n      [1609459200000, \"AA\", 50, \"2\"],\n      [1609459200000, \"BB\", 50, \"2\"]\n    ]\n  }\n]",
+          "refId": "A",
+          "scenarioId": "raw_frame"
+        }
+      ],
+      "title": "Slice tiled panel",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "trlxrdZVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlBl"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "id": 5,
+      "options": {
+        "groupByField": "Group",
+        "seriesCountSize": "sm",
+        "showSeriesCount": false,
+        "text": "Default value of text input option",
+        "tiling": "treemapSliceDice"
+      },
+      "pluginVersion": "2.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "db84e60d-b92a-4089-82cb-34842fb1754b"
+          },
+          "rawFrameContent": "[\n  {\n    \"columns\": [\n      {\n        \"text\": \"Time\",\n        \"type\": \"time\"\n      },\n      {\n        \"text\": \"Label\",\n        \"type\": \"string\"\n      },\n      {\n        \"text\": \"Value\",\n        \"type\": \"number\"\n      },\n      {\n        \"text\": \"Group\",\n        \"type\": \"string\"\n      }\n    ],\n    \"rows\": [\n      [1609459200000, \"A\", 100, \"1\"],\n      [1609462800000, \"B\", 50, \"1\"],\n      [1609466400000, \"C\", 25, \"1\"],\n      [1609470000000, \"D\", 12.5, \"1\"],\n      [1609473600000, \"E\", 6.25, \"1\"],\n      [160947720000000, \"F\", 3.125, \"1\"],\n      [160947720000000, \"G\", 1, \"1\"],\n      [160947720000000, \"H\", 0.5, \"1\"],\n      [160947720000000, \"I\", 0.1, \"1\"],\n      [160947720000000, \"J\", 0.05, \"1\"],\n\n      [1609459200000, \"AA\", 50, \"2\"],\n      [1609459200000, \"BB\", 50, \"2\"]\n    ]\n  }\n]",
+          "refId": "A",
+          "scenarioId": "raw_frame"
+        }
+      ],
+      "title": "Slice+dice tiled panel",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "trlxrdZVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "groupByField": "Group",
+        "seriesCountSize": "sm",
+        "showSeriesCount": false,
+        "text": "Default value of text input option",
+        "tiling": "treemapSquarify"
+      },
+      "pluginVersion": "2.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "db84e60d-b92a-4089-82cb-34842fb1754b"
+          },
+          "rawFrameContent": "[\n  {\n    \"columns\": [\n      {\n        \"text\": \"Time\",\n        \"type\": \"time\"\n      },\n      {\n        \"text\": \"Label\",\n        \"type\": \"string\"\n      },\n      {\n        \"text\": \"Value\",\n        \"type\": \"number\"\n      },\n      {\n        \"text\": \"Group\",\n        \"type\": \"string\"\n      }\n    ],\n    \"rows\": [\n      [1609459200000, \"A\", 100, \"1\"],\n      [1609462800000, \"B\", 50, \"1\"],\n      [1609466400000, \"C\", 25, \"1\"],\n      [1609470000000, \"D\", 12.5, \"1\"],\n      [1609473600000, \"E\", 6.25, \"1\"],\n      [160947720000000, \"F\", 3.125, \"1\"],\n      [160947720000000, \"G\", 1, \"1\"],\n      [160947720000000, \"H\", 0.5, \"1\"],\n      [160947720000000, \"I\", 0.1, \"1\"],\n      [160947720000000, \"J\", 0.05, \"1\"],\n\n      [1609459200000, \"AA\", 50, \"2\"],\n      [1609459200000, \"BB\", 50, \"2\"]\n    ]\n  }\n]",
+          "refId": "A",
+          "scenarioId": "raw_frame"
+        }
+      ],
+      "title": "Squarify tiled panel",
       "type": "marcusolsson-treemap-panel"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
@@ -97,8 +347,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Provisioned Tree map dashboard",
+  "title": "Provisioned Treemap dashboard",
   "uid": "a538aeff-5a8a-42a5-901c-938d896fdd6f",
-  "version": 1,
+  "version": 11,
   "weekStart": ""
 }

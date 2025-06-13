@@ -1,0 +1,20 @@
+/* Grafana top menu */
+header {
+  visibility: hidden;
+}
+
+/* Grafana side mega-menu + blur overlay */
+[data-overlay-container="true"],
+[data-testid="data-testid navigation mega-menu"] {
+  visibility: hidden;
+}
+
+/* Toolbar */
+[data-testid="data-testid Nav toolbar"] {
+  display: none;
+}
+
+/* Dashboard controls */
+[data-testid="data-testid dashboard controls"] {
+  visibility: hidden;
+}
