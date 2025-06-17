@@ -18,6 +18,7 @@ jobs:
     with:
       plugin-version-suffix: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || '' }}
       run-playwright: true
+      playwright-config: e2e/playwright.config.ts
     # run-playwright-docker: true
       playwright-docker-compose-file: docker-compose.yaml
     # run-playwright-with-skip-grafana-dev-image: true
