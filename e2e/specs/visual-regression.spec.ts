@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { test, expect } from '@grafana/plugin-e2e';
-import dashboardJson from '../provisioning/dashboards/dashboard.json';
+import dashboardJson from '../../provisioning/dashboards/dashboard.json';
 
 const panelScreenshotOptions = {
   maxDiffPixels: 0,
