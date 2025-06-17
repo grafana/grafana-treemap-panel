@@ -38,6 +38,7 @@ panels
       );
       await expect(panelVisualizationSvg).toBeVisible();
 
-      await expect(page).toHaveScreenshot(panelScreenshotOptions);
+      const screenshotFilename = `${title.trim().replace(' ', '-')}.png`;
+      await expect(page).toHaveScreenshot(screenshotFilename, panelScreenshotOptions);
     });
   });
