@@ -9,7 +9,9 @@
       "name": "Grafana Labs",
       "url": "https://grafana.com"
     },
-    "keywords": ["treemap"],
+    "keywords": [
+      "treemap"
+    ],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
@@ -34,7 +36,6 @@
     "updated": "%TODAY%"
   },
   "dependencies": {
-    "grafanaDependency": ">8"
+    "grafanaDependency": ">=11"
   }
-
 }
