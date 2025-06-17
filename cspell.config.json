@@ -19,10 +19,22 @@
     "provisioning/**"
   ],
   "ignoreRegExpList": [
-    // ignore multiline imports
     "import\\s*\\((.|[\r\n])*?\\)",
-    // ignore single line imports
     "import\\s*.*\".*?\""
   ],
-  "words": ["grafana", "datasource", "datasources", "treemap", "tippyjs", "squarify", "marcusolsson", "Olsson", "acmecorp", "polystat", "volkovlabs"]
+  "words": [
+    "acmecorp",
+    "datasource",
+    "datasources",
+    "testid",
+    "grafana",
+    "marcusolsson",
+    "olsson",
+    "polystat",
+    "squarify",
+    "tippyjs",
+    "treemap",
+    "unconfigured",
+    "volkovlabs"
+  ]
 }
