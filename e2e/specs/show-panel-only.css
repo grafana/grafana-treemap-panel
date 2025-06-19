@@ -1,20 +1,11 @@
-/* Grafana top menu */
-header {
+[data-testid="data-testid Nav toolbar"],         /* Toolbar */
+[data-testid="data-testid dashboard controls"],  /* Dashboard controls */
+[data-overlay-container="true"],                 /* Grafana side mega-menu blur overlay */
+[data-testid="data-testid navigation mega-menu"], /* Grafana side mega-menu */
+header                                           /* Grafana top menu */
+{
+  width: 0;
+  height: 0;
   visibility: hidden;
-}
-
-/* Grafana side mega-menu + blur overlay */
-[data-overlay-container="true"],
-[data-testid="data-testid navigation mega-menu"] {
-  visibility: hidden;
-}
-
-/* Toolbar */
-[data-testid="data-testid Nav toolbar"] {
   display: none;
-}
-
-/* Dashboard controls */
-[data-testid="data-testid dashboard controls"] {
-  visibility: hidden;
 }
