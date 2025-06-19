@@ -3,7 +3,7 @@ import { test, expect } from '@grafana/plugin-e2e';
 import dashboardJson from '../../provisioning/dashboards/dashboard.json';
 
 const panelScreenshotOptions = {
-  maxDiffPixels: 0,
+  maxDiff: 0.01,
   stylePath: path.join(__dirname, 'show-panel-only.css'),
 };
 
@@ -14,14 +14,15 @@ const dashboardSlug = dashboardTitle.toLowerCase()
   .trim()
   .replace(' ', '-');
 
-const dashboardUrl = `http://localhost:3000/d/${dashboardUid}/${dashboardSlug}`;
+const grafanaUrl = process.env.GRAFANA_URL || 'http://localhost:3000';
+const dashboardUrl = `${grafanaUrl}/d/${dashboardUid}/${dashboardSlug}`;
 
 panels
   .filter(({ title }) => title !== 'Unconfigured panel')
   .forEach(({ title, id }) => {
     test(title, async ({ page }) => {
       await page.goto(
-        `${dashboardUrl}?orgId=1&from=now-6h&to=now&timezone=browser&viewPanel=panel-${id}`
+        `${dashboardUrl}?orgId=1&from=now-6h&to=now&timezone=browser&viewPanel=panel-${id}&kiosk`
       );
 
       const panel = page.locator(

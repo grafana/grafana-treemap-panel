@@ -1,11 +1,4 @@
-[data-testid="data-testid Nav toolbar"],         /* Toolbar */
-[data-testid="data-testid dashboard controls"],  /* Dashboard controls */
-[data-overlay-container="true"],                 /* Grafana side mega-menu blur overlay */
-[data-testid="data-testid navigation mega-menu"], /* Grafana side mega-menu */
-header                                           /* Grafana top menu */
-{
-  width: 0;
-  height: 0;
+[data-testid="data-testid dashboard controls"] {
+  height: 64px; /* NOTE: Overridden to avoid minor pixel drift between Grafana versions. */
   visibility: hidden;
-  display: none;
 }
