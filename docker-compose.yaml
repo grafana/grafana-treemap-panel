@@ -3,3 +3,16 @@ services:
     extends:
       file: .config/docker-compose-base.yaml
       service: grafana
+    ports:
+      - 3000:3000
+  playwright:
+    network_mode: host
+    container_name: 'playwright-e2e'
+    build:
+      dockerfile: ./e2e/Dockerfile.playwright
+      context: .
+    volumes:
+      - ./e2e:/app/e2e
+      - ./provisioning:/app/provisioning
+    command: ${PLAYWRIGHT_ARGS:-}
+    profiles: [playwright]

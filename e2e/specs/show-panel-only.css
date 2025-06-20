@@ -1,0 +1,4 @@
+[data-testid="data-testid dashboard controls"] {
+  height: 64px; /* NOTE: Overridden to avoid minor pixel drift between Grafana versions. */
+  visibility: hidden;
+}

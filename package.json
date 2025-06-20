@@ -15,7 +15,10 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "yarn run lint --fix && prettier --write --list-different .",
-    "e2e": "playwright test",
+    "e2e": "playwright test -c ./e2e/playwright.config.ts",
+    "e2e:ci": "docker compose --profile playwright up --build --attach playwright",
+    "e2e:prepare": "npm exec playwright install chromium",
+    "e2e:update-screenshots": "playwright test --update-snapshots",
     "server": "docker compose up --build",
     "sign": "npx --yes @grafana/sign-plugin@latest"
   },

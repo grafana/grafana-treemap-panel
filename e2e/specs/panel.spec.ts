@@ -5,7 +5,7 @@ test('should display "Configure your query" wizard in case panel data is empty',
   readProvisionedDashboard,
 }) => {
   const dashboard = await readProvisionedDashboard({ fileName: 'dashboard.json' });
-  const panelEditPage = await gotoPanelEditPage({ dashboard, id: '2' });
+  const panelEditPage = await gotoPanelEditPage({ dashboard, id: '1' });
   await expect(panelEditPage.panel.locator).toContainText('Configure your query');
 });
 
