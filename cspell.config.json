@@ -3,6 +3,7 @@
     "coverage/**",
     "cypress/**",
     "dist/**",
+    "e2e/css/**",
     "go.sum",
     "mage_output_file.go",
     "node_modules/**",
