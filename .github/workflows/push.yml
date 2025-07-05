@@ -17,7 +17,7 @@ jobs:
       id-token: write
     with:
       plugin-version-suffix: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || '' }}
-      # run-playwright-with-grafana-dependency: ">=11"
+      run-playwright-with-grafana-dependency: ">=11.6"
       run-playwright: false
       run-playwright-docker: true
       playwright-docker-compose-file: docker-compose.yaml
