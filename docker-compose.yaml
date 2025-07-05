@@ -22,8 +22,11 @@ services:
       - grafana
     environment:
       GRAFANA_URL: http://grafana:3000
+      PW_TEST_HTML_REPORT_OPEN: never
     ports:
       - "9323:9323"
+    # NOTE: Uses the default `command` defined in `e2e/Dockerfile.playwright`.
+    # SEE: https://github.com/grafana/grafana/blob/main/e2e/Dockerfile.playwright
 
   playwright-update-screenshots:
     container_name: playwright-update-screenshots
@@ -41,4 +44,5 @@ services:
       - grafana
     environment:
       GRAFANA_URL: http://grafana:3000
+      PW_TEST_HTML_REPORT_OPEN: never
     command: npx playwright test -c e2e/playwright.config.ts --update-snapshots
