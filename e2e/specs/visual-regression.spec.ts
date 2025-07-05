@@ -3,7 +3,8 @@ import { test, expect } from '@grafana/plugin-e2e';
 import dashboardJson from '../../provisioning/dashboards/dashboard.json';
 
 const panelScreenshotOptions = {
-  maxDiff: 0.01,
+  maxDiff: 0.01, // Only 1% of pixels can be different
+  threshold: 0.1, // Ignore very minor differences (anti-aliasing, etc.)
   stylePath: path.join(__dirname, '..', 'css', 'show-panel-only.css'),
 };
 
