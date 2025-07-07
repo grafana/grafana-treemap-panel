@@ -3,3 +3,46 @@ services:
     extends:
       file: .config/docker-compose-base.yaml
       service: grafana
+    ports:
+      - "3000:3000"
+
+  playwright:
+    container_name: playwright-e2e
+    build:
+      dockerfile: ./e2e/Dockerfile.playwright
+      context: .
+    volumes:
+      - ./provisioning:/app/provisioning
+      - ./e2e:/app/e2e
+      - ./test-results:/app/test-results
+      - ./playwright:/app/playwright
+      - ./playwright-report:/app/playwright-report
+    profiles: [playwright]
+    depends_on:
+      - grafana
+    environment:
+      GRAFANA_URL: http://grafana:3000
+      PW_TEST_HTML_REPORT_OPEN: never
+    ports:
+      - "9323:9323"
+    # NOTE: Uses the default `command` defined in `e2e/Dockerfile.playwright`.
+    # SEE: https://github.com/grafana/grafana/blob/main/e2e/Dockerfile.playwright
+
+  playwright-update-screenshots:
+    container_name: playwright-update-screenshots
+    build:
+      dockerfile: ./e2e/Dockerfile.playwright
+      context: .
+    volumes:
+      - ./provisioning:/app/provisioning
+      - ./e2e:/app/e2e
+      - ./test-results:/app/test-results
+      - ./playwright:/app/playwright
+      - ./playwright-report:/app/playwright-report
+    profiles: [playwright-update-screenshots]
+    depends_on:
+      - grafana
+    environment:
+      GRAFANA_URL: http://grafana:3000
+      PW_TEST_HTML_REPORT_OPEN: never
+    command: npx playwright test -c e2e/playwright.config.ts --update-snapshots

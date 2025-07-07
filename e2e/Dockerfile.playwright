@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/playwright:v1.53.2-noble
+
+WORKDIR /app
+
+# required by the e2e test code
+RUN npm install "@playwright/test@^1.53.2" "dotenv@^16.3.1" "@grafana/plugin-e2e"
+
+CMD ["npx", "playwright", "test", "-c", "e2e/playwright.config.ts"]
+

@@ -14,6 +14,12 @@ More details about this plugin are available in the [README.md](./src/README.md)
 
 ### Frontend
 
+> [!IMPORTANT]
+> Prerequisites
+>
+> - [Yarn](https://yarnpkg.com)
+> - [Docker](https://www.docker.com)
+
 1. Install dependencies
 
    ```bash
@@ -50,18 +56,23 @@ More details about this plugin are available in the [README.md](./src/README.md)
 
 6. Run the E2E tests (using Playwright)
 
-   ```bash
-   # Spins up a Grafana instance first that we tests against
-   yarn server
 
-   # If you wish to start a certain Grafana version. If not specified will use latest by default
-   GRAFANA_VERSION=11.3.0 npm run server
+    ```bash
+    yarn e2e
+    ```
 
-   # Starts the tests
-   yarn e2e
-   ```
+    SEE: [./e2e/README.md]()
 
-7. Run the linter
+7. Update the E2E screenshots (using Playwright)
+
+
+    ```bash
+    yarn e2e:update-screenshots
+    ```
+
+    SEE: [./e2e/README.md]()
+
+8. Run the linter
 
    ```bash
    yarn lint
@@ -91,4 +102,3 @@ More details about this plugin are available in the [README.md](./src/README.md)
      - Leave "use workflow from" as `main`
      - Choose `prod` as the environment to publish to
      - Choose `main` as the branch to publish from
-

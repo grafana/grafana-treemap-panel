@@ -1,0 +1,9 @@
+/* NOTE: Overridden to avoid minor pixel drift between Grafana versions. */
+[data-testid="data-testid panel content"] {
+  position: static !important;
+  width: 1500px !important;
+  height: 1000px !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 1000 !important;
+}

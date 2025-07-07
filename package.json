@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "yarn run lint --fix && prettier --write --list-different .",
-    "e2e": "playwright test",
+    "e2e": "docker compose --profile playwright up --abort-on-container-exit",
+    "e2e:update-screenshots": "docker compose --profile playwright-update-screenshots up --abort-on-container-exit",
     "server": "docker compose up --build",
     "sign": "npx --yes @grafana/sign-plugin@latest"
   },
