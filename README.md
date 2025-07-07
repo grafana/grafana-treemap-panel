@@ -56,28 +56,21 @@ More details about this plugin are available in the [README.md](./src/README.md)
 
 6. Run the E2E tests (using Playwright)
 
-   ```bash
-   # Spins up a Grafana instance first that we tests against
-   yarn server
 
-   # If you wish to start a certain Grafana version. If not specified will use latest by default
-   GRAFANA_VERSION=11.3.0 npm run server
+    ```bash
+    yarn e2e
+    ```
 
-   # Starts the tests
-   yarn e2e
-   ```
+    SEE: [./e2e/README.md]()
 
 7. Update the E2E screenshots (using Playwright)
 
-```bash
-yarn server
 
-yarn e2e:update-screenshots
-```
+    ```bash
+    yarn e2e:update-screenshots
+    ```
 
-> [!WARNING]
-> Screenshots guard against visual regression of the Treemap visualizations.
-> Please verify screenshot pixel diffs _before_ updating.
+    SEE: [./e2e/README.md]()
 
 8. Run the linter
 
