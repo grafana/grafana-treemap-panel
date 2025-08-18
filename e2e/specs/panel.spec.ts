@@ -1,4 +1,4 @@
-import { test, expect } from '@grafana/plugin-e2e';
+import { test, expect } from '../fixtures/coverage';
 
 test('should display "Configure your query" wizard in case panel data is empty', async ({
   gotoPanelEditPage,
