@@ -44,3 +44,5 @@ ci/
 .idea
 
 .eslintcache
+
+monocart-report/
