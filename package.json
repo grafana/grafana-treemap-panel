@@ -18,7 +18,10 @@
     "e2e": "docker compose --profile playwright up --abort-on-container-exit",
     "e2e:update-screenshots": "docker compose --profile playwright-update-screenshots up --abort-on-container-exit",
     "server": "docker compose up --build",
-    "sign": "npx --yes @grafana/sign-plugin@latest"
+    "sign": "npx --yes @grafana/sign-plugin@latest",
+    "coverage": "yarn coverage:clean && yarn e2e && yarn test:ci && yarn coverage:merge-reports",
+    "coverage:clean": "rm -rf coverage && rm -rf coverage-merged",
+    "coverage:merge-reports": "node scripts/merge-coverage.js"
   },
   "homepage": "https://grafana.com/plugins/marcusolsson-treemap-panel",
   "bugs": "https://github.com/grafana/grafana-treemap-panel/issues",
@@ -86,6 +89,7 @@
     "@grafana/runtime": "^11.5.3",
     "@grafana/schema": "^11.5.3",
     "@grafana/ui": "^11.5.3",
+    "monocart-coverage-reports": "^2.12.6",
     "rb-tippyjs-react": "^4.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"

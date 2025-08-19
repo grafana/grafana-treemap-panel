@@ -46,3 +46,5 @@ ci/
 .eslintcache
 
 monocart-report/
+
+coverage-merged/
