@@ -25,17 +25,15 @@ module.exports = {
     'default', // Keep default Jest console output
     ['jest-monocart-coverage', {
       name: 'Treemap Panel Jest Unit Tests Coverage',
-      reports: [
-        'v8',
-        'console-summary',
-        'lcov'
-      ],
       outputDir: './coverage/unit',
-      
-      // Include all files, even untested ones (show 0% coverage)
+      reports: [
+        ['v8'],
+        ['console-summary'],
+        ['lcov'],
+        ['json'],
+        ['raw'],
+      ],
       all: './src',
-      
-      // Filter to only include our TypeScript/JavaScript files
       sourceFilter: (sourcePath) => {
         return sourcePath.startsWith('src/') && 
                (sourcePath.endsWith('.ts') || sourcePath.endsWith('.tsx') || 
@@ -47,15 +45,11 @@ module.exports = {
                !sourcePath.endsWith('.d.ts') &&
                !sourcePath.endsWith('/types.ts'); // Exclude type definition files
       },
-      
-      // Normalize paths to ensure consistency (should already start with 'src/')
       sourcePath: (filePath) => {
-        // Ensure all paths start with 'src/' for consistency with E2E reports
         if (!filePath.startsWith('src/') && !filePath.startsWith('/')) {
           return `src/${filePath}`;
         }
         
-        // Remove any leading slashes and ensure src/ prefix
         if (filePath.startsWith('/')) {
           const cleanPath = filePath.substring(1);
           return cleanPath.startsWith('src/') ? cleanPath : `src/${cleanPath}`;
