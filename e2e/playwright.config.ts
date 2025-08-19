@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 import { dirname } from 'node:path';
 
 const pluginE2eAuth = `${dirname(require.resolve('@grafana/plugin-e2e'))}/auth`;
-import { name as PACKAGE_NAME } from '../package.json';
+const { name: PACKAGE_NAME } = require('../package.json');
 
 /**
  * Read environment variables from file.
