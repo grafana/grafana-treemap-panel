@@ -17,6 +17,7 @@ services:
       - ./test-results:/app/test-results
       - ./playwright:/app/playwright
       - ./playwright-report:/app/playwright-report
+      - ./coverage:/app/coverage
     profiles: [playwright]
     depends_on:
       - grafana

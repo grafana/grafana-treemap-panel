@@ -44,7 +44,7 @@ More details about this plugin are available in the [README.md](./src/README.md)
    # Runs the tests and watches for changes, requires git init first
    yarn test
 
-   # Exits after running all the tests
+   # Exits after running all the tests, generates a coverage report
    yarn test:ci
    ```
 
@@ -56,21 +56,20 @@ More details about this plugin are available in the [README.md](./src/README.md)
 
 6. Run the E2E tests (using Playwright)
 
+   ```bash
+   # Runs in a Docker container for consistency, generates a coverage report
+   yarn e2e
+   ```
 
-    ```bash
-    yarn e2e
-    ```
-
-    SEE: [./e2e/README.md]()
+   SEE: [./e2e/README.md]()
 
 7. Update the E2E screenshots (using Playwright)
 
+   ```bash
+   yarn e2e:update-screenshots
+   ```
 
-    ```bash
-    yarn e2e:update-screenshots
-    ```
-
-    SEE: [./e2e/README.md]()
+   SEE: [./e2e/README.md]()
 
 8. Run the linter
 

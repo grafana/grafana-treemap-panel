@@ -1,5 +1,7 @@
 import path from 'node:path';
-import { test, expect } from '@grafana/plugin-e2e';
+
+import { test, expect } from '../fixtures/coverage';
+
 import dashboardJson from '../../provisioning/dashboards/dashboard.json';
 
 const panelScreenshotOptions = {
@@ -18,9 +20,12 @@ const dashboardSlug = dashboardTitle.toLowerCase()
 const grafanaUrl = process.env.GRAFANA_URL || 'http://localhost:3000';
 const dashboardUrl = `${grafanaUrl}/d/${dashboardUid}/${dashboardSlug}`;
 
-panels
-  .filter(({ title }) => title !== 'Unconfigured panel')
-  .forEach(({ title, id }) => {
+const panelsToTest = panels
+  .filter(({ title }) => title !== 'Unconfigured panel');
+
+test.describe.serial('Visual regression', () => {
+
+  for (const { title, id } of panelsToTest) {
     test(title, async ({ page }) => {
       await page.goto(
         `${dashboardUrl}?orgId=1&from=now-6h&to=now&timezone=browser&viewPanel=panel-${id}&kiosk`
@@ -50,4 +55,5 @@ panels
 
       await expect(panelSvgElement).toHaveScreenshot(path, panelScreenshotOptions);
     });
-  });
+  }
+});
