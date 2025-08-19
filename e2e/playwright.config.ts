@@ -29,8 +29,15 @@ export default defineConfig<PluginOptions>({
       name: 'Treemap Panel E2E Coverage',
       outputDir: './playwright-report/monocart',
       coverage: {
-        reports: ['v8', 'html', 'json', 'text-summary', 'lcov'],
-        outputDir: './coverage/e2e/',
+        outputDir: 'coverage/e2e/',
+        reports: [
+          ['v8'],
+          ['html'],
+          ['json'],
+          ['text-summary'],
+          ['lcov'],
+          ['raw'],
+        ],
         all: './src',
         baseDir: './',
         sourceFilter: (sourcePath) => {
