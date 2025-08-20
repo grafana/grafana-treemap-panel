@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/playwright:v1.54.1-noble
+FROM mcr.microsoft.com/playwright:v1.55.0-noble
 
 WORKDIR /app
 
 # required by the e2e test code
-RUN npm install "@playwright/test@^1.54.1" "dotenv@^16.3.1" "@grafana/plugin-e2e" "monocart-reporter"
+RUN npm install "@playwright/test@1.55.0" "dotenv@^16.3.1" "@grafana/plugin-e2e" "monocart-reporter"
 
 CMD ["npx", "playwright", "test", "-c", "e2e/playwright.config.ts"]
 
