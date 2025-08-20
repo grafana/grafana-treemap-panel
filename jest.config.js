@@ -2,6 +2,8 @@
 // generally used by snapshots, but can affect specific tests
 process.env.TZ = 'UTC';
 
+const { createSourcePath, createStaticSourceFilter } = require('./scripts/utils/coverage');
+
 module.exports = {
   // Jest configuration provided by Grafana scaffolding
   ...require('./.config/jest.config'),
@@ -22,7 +24,7 @@ module.exports = {
   
   // Custom reporters
   reporters: [
-    'default', // Keep default Jest console output
+    'default',
     ['jest-monocart-coverage', {
       name: 'Treemap Panel Jest Unit Tests Coverage',
       outputDir: './coverage/unit',
@@ -34,29 +36,8 @@ module.exports = {
         ['raw'],
       ],
       all: './src',
-      sourceFilter: (sourcePath) => {
-        return sourcePath.startsWith('src/') && 
-               (sourcePath.endsWith('.ts') || sourcePath.endsWith('.tsx') || 
-                sourcePath.endsWith('.js') || sourcePath.endsWith('.jsx')) &&
-               !sourcePath.includes('.test.') &&
-               !sourcePath.includes('.spec.') &&
-               !sourcePath.includes('__tests__') &&
-               !sourcePath.includes('__mocks__') &&
-               !sourcePath.endsWith('.d.ts') &&
-               !sourcePath.endsWith('/types.ts'); // Exclude type definition files
-      },
-      sourcePath: (filePath) => {
-        if (!filePath.startsWith('src/') && !filePath.startsWith('/')) {
-          return `src/${filePath}`;
-        }
-        
-        if (filePath.startsWith('/')) {
-          const cleanPath = filePath.substring(1);
-          return cleanPath.startsWith('src/') ? cleanPath : `src/${cleanPath}`;
-        }
-        
-        return filePath;
-      }
+      sourceFilter: createStaticSourceFilter({ excludeTypes: true }),
+      sourcePath: createSourcePath()
     }]
   ]
 };

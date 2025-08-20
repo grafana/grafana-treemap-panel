@@ -19,6 +19,7 @@ services:
       - ./playwright-report:/app/playwright-report
       - ./coverage:/app/coverage
       - ./package.json:/app/package.json
+      - ./scripts:/app/scripts
     profiles: [playwright]
     depends_on:
       - grafana
@@ -42,6 +43,7 @@ services:
       - ./playwright:/app/playwright
       - ./playwright-report:/app/playwright-report
       - ./package.json:/app/package.json
+      - ./scripts:/app/scripts
     profiles: [playwright-update-screenshots]
     depends_on:
       - grafana

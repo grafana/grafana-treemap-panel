@@ -4,6 +4,7 @@ import { dirname } from 'node:path';
 
 const pluginE2eAuth = `${dirname(require.resolve('@grafana/plugin-e2e'))}/auth`;
 const { name: PACKAGE_NAME } = require('../package.json');
+const { createSourcePath, createInstrumentedSourceFilter } = require('../scripts/utils/coverage');
 
 /**
  * Read environment variables from file.
@@ -40,47 +41,8 @@ export default defineConfig<PluginOptions>({
         ],
         all: './src',
         baseDir: './',
-        sourceFilter: (sourcePath) => {
-          // Include TypeScript files that are either:
-          // 1. In OUR project's src/ directories (not external ones)
-          // 2. Root-level files in our plugin
-          const isTypeScriptFile = sourcePath.endsWith('.ts') || sourcePath.endsWith('.tsx');
-          const isOurSrcDirectory = sourcePath.startsWith('src/') ||
-            (sourcePath.includes(PACKAGE_NAME) && sourcePath.includes('/src/'));
-          const isRootPluginFile = sourcePath.includes(PACKAGE_NAME) &&
-            !sourcePath.includes('node_modules/') &&
-            !sourcePath.includes('webpack/') &&
-            !sourcePath.includes('external ') &&
-            !sourcePath.includes('/src/') &&  // Root files don't have /src/ in path
-            !sourcePath.includes('grafana-plugin-support/');
-
-          return isTypeScriptFile &&
-            (isOurSrcDirectory || isRootPluginFile) &&
-            !sourcePath.includes('.test.') &&
-            !sourcePath.includes('.spec.') &&
-            !sourcePath.includes('__tests__') &&
-            !sourcePath.includes('__mocks__') &&
-            !sourcePath.endsWith('.d.ts');
-        },
-
-        // NOTE: We must normalize paths to start with 'src/' instead of the
-        //       package name for interoperability with Jest test reports.
-        sourcePath: (filePath) => {
-          if (filePath.includes(PACKAGE_NAME) && !filePath.includes('/src/')) {
-            const fileName = filePath.split('/').pop();
-            return `src/${fileName}`;
-          }
-
-          if (filePath.includes(`${PACKAGE_NAME}/grafana-plugin-support/`)) {
-            return filePath.replace(`${PACKAGE_NAME}/`, 'src/');
-          }
-
-          if (filePath.includes(`${PACKAGE_NAME}/src/`)) {
-            return filePath.replace(`${PACKAGE_NAME}/`, '');
-          }
-
-          return filePath;
-        }
+        sourceFilter: createInstrumentedSourceFilter(),
+        sourcePath: createSourcePath()
       }
     }]
   ],
