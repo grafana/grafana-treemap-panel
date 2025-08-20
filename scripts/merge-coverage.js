@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { CoverageReport } = require('monocart-coverage-reports');
+const { name: PACKAGE_NAME } = require('../package.json');
 
 const INPUT_DIRS = [
   './coverage/unit/raw',
@@ -17,9 +18,35 @@ async function mergeCoverageReports() {
     reports: [
       ['v8'],
       ['console-details'],
+      ['json'],
+      ['lcov'],
     ],
+
+    sourceFilter: (sourcePath) => {
+      return sourcePath.startsWith('src/') &&
+             !sourcePath.includes('node_modules') &&
+             !sourcePath.includes('webpack') &&
+             !sourcePath.includes('external amd') &&
+             !sourcePath.includes('rb-tippyjs-react') &&
+             !sourcePath.includes('tippy.js') &&
+             !sourcePath.includes('semver') &&
+             !sourcePath.includes('@popperjs');
+    },
+
     sourcePath: (filePath, info) => {
-      console.info('filePath', filePath);
+      if (filePath.includes(`${PACKAGE_NAME}/`) && !filePath.includes('/src/')) {
+        const fileName = filePath.replace(`${PACKAGE_NAME}/`, '');
+        return fileName.startsWith('src/') ? fileName : `src/${fileName}`;
+      }
+      
+      if (filePath.includes(`${PACKAGE_NAME}/`) && filePath.includes('/src/')) {
+        return filePath.replace(`${PACKAGE_NAME}/`, 'src/');
+      }
+      
+      if (!filePath.startsWith('src/') && !filePath.includes('node_modules') && !filePath.includes('webpack') && !filePath.includes('external')) {
+        return `src/${filePath}`;
+      }
+      
       return filePath;
     },
     // logging: 'debug'
