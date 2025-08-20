@@ -26,7 +26,7 @@ module.exports = {
   reporters: [
     'default',
     ['jest-monocart-coverage', {
-      name: 'Treemap Panel Jest Unit Tests Coverage',
+      name: 'Coverage Report - Treemap panel Jest unit tests',
       outputDir: './coverage/unit',
       reports: [
         ['v8'],

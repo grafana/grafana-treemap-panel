@@ -10,9 +10,9 @@ const INPUT_DIRS = [
 
 // SEE: https://github.com/cenfun/monocart-coverage-reports#manual-merging
 async function mergeCoverageReports() {
-  
+
   const coverageReport = new CoverageReport({
-    name: 'Merged Coverage Report',
+    name: `Coverage Report - Merged (${INPUT_DIRS.length}) coverage reports`,
     inputDir: INPUT_DIRS,
     outputDir: './coverage-merged',
     reports: [
@@ -33,3 +33,4 @@ async function mergeCoverageReports() {
 if (require.main === module) {
   mergeCoverageReports().catch(console.error);
 }
+

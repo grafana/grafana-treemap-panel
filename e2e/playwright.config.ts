@@ -27,7 +27,7 @@ export default defineConfig<PluginOptions>({
   reporter: [
     ['html', { host: '0.0.0.0', port: 9323 }],
     ['monocart-reporter', {
-      name: 'Treemap Panel E2E Coverage',
+      name: 'Treemap panel E2E tests',
       outputDir: './playwright-report/monocart',
       coverage: {
         outputDir: 'coverage/e2e/',
