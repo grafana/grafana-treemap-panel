@@ -31,8 +31,8 @@ async function mergeCoverageReports() {
       ['lcov'],
     ],
 
-    sourceFilter: createInstrumentedSourceFilter(),
-    sourcePath: createSourcePath(),
+    sourceFilter: createInstrumentedSourceFilter({ packageName: 'marcusolsson-treemap-panel' }),
+    sourcePath: createSourcePath({ packageName: 'marcusolsson-treemap-panel' }),
     // logging: 'debug'
   });
 

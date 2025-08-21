@@ -41,8 +41,8 @@ export default defineConfig<PluginOptions>({
         ],
         all: './src',
         baseDir: './',
-        sourceFilter: createInstrumentedSourceFilter(),
-        sourcePath: createSourcePath()
+        sourceFilter: createInstrumentedSourceFilter({ packageName: 'marcusolsson-treemap-panel' }),
+        sourcePath: createSourcePath({ packageName: 'marcusolsson-treemap-panel' })
       }
     }]
   ],

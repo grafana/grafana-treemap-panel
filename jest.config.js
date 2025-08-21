@@ -36,8 +36,8 @@ module.exports = {
         ['raw'],
       ],
       all: './src',
-      sourceFilter: createStaticSourceFilter({ excludeTypes: true }),
-      sourcePath: createSourcePath()
+      sourceFilter: createStaticSourceFilter({ excludeTypes: true, packageName: 'marcusolsson-treemap-panel' }),
+      sourcePath: createSourcePath({ packageName: 'marcusolsson-treemap-panel' })
     }]
   ]
 };
