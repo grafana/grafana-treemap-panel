@@ -4,7 +4,7 @@ import { dirname } from 'node:path';
 
 const pluginE2eAuth = `${dirname(require.resolve('@grafana/plugin-e2e'))}/auth`;
 const { name: PACKAGE_NAME } = require('../package.json');
-const { createSourcePath, createInstrumentedSourceFilter } = require('../scripts/utils/coverage');
+const { createSourcePath, createSourceFilterConfig } = require('../scripts/utils/coverage');
 
 /**
  * Read environment variables from file.
@@ -41,7 +41,11 @@ export default defineConfig<PluginOptions>({
         ],
         all: './src',
         baseDir: './',
-        sourceFilter: createInstrumentedSourceFilter({ packageName: 'marcusolsson-treemap-panel' }),
+        sourceFilter: createSourceFilterConfig({ 
+          packageName: 'marcusolsson-treemap-panel',
+          includeTypescriptOnly: true,
+          excludeTypes: true 
+        }),
         sourcePath: createSourcePath({ packageName: 'marcusolsson-treemap-panel' })
       }
     }]

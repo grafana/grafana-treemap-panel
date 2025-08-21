@@ -2,7 +2,9 @@
 
 const { CoverageReport } = require('monocart-coverage-reports');
 const { glob } = require('glob');
-const { createSourcePath, createInstrumentedSourceFilter } = require('./utils/coverage');
+const fs = require('fs');
+const path = require('path');
+const { createSourcePath, createSourceFilterConfig } = require('./utils/coverage');
 
 const RAW_COVERAGE_PATTERN = 'coverage/*/raw';
 
@@ -27,16 +29,59 @@ async function mergeCoverageReports() {
     reports: [
       ['v8'],
       ['console-details'],
+      ['html'],
       ['json'],
       ['lcov'],
     ],
 
-    sourceFilter: createInstrumentedSourceFilter({ packageName: 'marcusolsson-treemap-panel' }),
+    sourceFilter: createSourceFilterConfig({ 
+      packageName: 'marcusolsson-treemap-panel',
+      includeTypescriptOnly: true,
+      excludeTypes: true
+    }),
     sourcePath: createSourcePath({ packageName: 'marcusolsson-treemap-panel' }),
     // logging: 'debug'
   });
 
   await coverageReport.generate();
+  
+  const mergedDir = path.join(process.cwd(), 'coverage-merged');
+  const targetDir = path.join(process.cwd(), 'coverage');
+  
+  const filesToCopy = [
+    'index.html',
+    'coverage-data.js',
+    'coverage-final.json'
+  ];
+  
+  try {
+    for (const file of filesToCopy) {
+      const sourcePath = path.join(mergedDir, file);
+      const targetPath = path.join(targetDir, file);
+      
+      if (fs.existsSync(sourcePath)) {
+        fs.copyFileSync(sourcePath, targetPath);
+      }
+    }
+    
+    const assetsSourceDir = path.join(mergedDir, 'assets');
+    const assetsTargetDir = path.join(targetDir, 'assets');
+    
+    if (fs.existsSync(assetsSourceDir)) {
+      if (!fs.existsSync(assetsTargetDir)) {
+        fs.mkdirSync(assetsTargetDir, { recursive: true });
+      }
+      
+      const assetFiles = fs.readdirSync(assetsSourceDir);
+      for (const assetFile of assetFiles) {
+        const assetSourcePath = path.join(assetsSourceDir, assetFile);
+        const assetTargetPath = path.join(assetsTargetDir, assetFile);
+        fs.copyFileSync(assetSourcePath, assetTargetPath);
+      }
+    }
+  } catch (error) {
+    console.warn(`⚠️ Could not copy merged report files:`, error.message);
+  }
 }
 
 if (require.main === module) {

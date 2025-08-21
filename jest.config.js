@@ -2,7 +2,7 @@
 // generally used by snapshots, but can affect specific tests
 process.env.TZ = 'UTC';
 
-const { createSourcePath, createStaticSourceFilter } = require('./scripts/utils/coverage');
+const { createSourcePath, createSourceFilterConfig } = require('./scripts/utils/coverage');
 
 module.exports = {
   // Jest configuration provided by Grafana scaffolding
@@ -36,7 +36,11 @@ module.exports = {
         ['raw'],
       ],
       all: './src',
-      sourceFilter: createStaticSourceFilter({ excludeTypes: true, packageName: 'marcusolsson-treemap-panel' }),
+      sourceFilter: createSourceFilterConfig({ 
+        excludeTypes: true, 
+        packageName: 'marcusolsson-treemap-panel',
+        includeTypescriptOnly: false
+      }),
       sourcePath: createSourcePath({ packageName: 'marcusolsson-treemap-panel' })
     }]
   ]
