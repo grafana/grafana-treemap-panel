@@ -6,6 +6,7 @@ import { FrameView, TreemapOptions } from 'types';
 import { ContextMenu, MenuGroup } from './ContextMenu';
 import { buildHierarchy, buildLayout } from './treemap';
 import { TreemapTile } from './TreemapTile';
+import { buildFrameViews } from './frameSelection';
 
 interface Props extends PanelProps<TreemapOptions> {}
 
@@ -15,42 +16,6 @@ interface Props extends PanelProps<TreemapOptions> {}
 export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) => {
   const { tiling } = options;
 
-  const normalize = (value?: string) => (value ?? '').trim();
-
-  const fieldMatches = (field: Field, wanted?: string) => {
-    const wantedNormalized = normalize(wanted);
-    if (!wantedNormalized) {
-      return false;
-    }
-
-    const candidates = [
-      field.name,
-      field.config?.displayName,
-      field.config?.displayNameFromDS,
-      (field.state as any)?.displayName,
-    ]
-      .map(normalize)
-      .filter(Boolean);
-
-    return candidates.includes(wantedNormalized);
-  };
-
-  const findStringField = (frame: any, wanted?: string) => {
-    if (normalize(wanted)) {
-      return frame.fields.find((f: Field) => f.type === FieldType.string && fieldMatches(f, wanted));
-    }
-
-    return frame.fields.find((f: Field) => f.type === FieldType.string);
-  };
-
-  const findNumberField = (frame: any, wanted?: string) => {
-    if (normalize(wanted)) {
-      return frame.fields.find((f: Field) => f.type === FieldType.number && fieldMatches(f, wanted));
-    }
-
-    return frame.fields.find((f: Field) => f.type === FieldType.number);
-  };
-
   // State for context menu.
   const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
   const [contextMenuLabel, setContextMenuLabel] = useState<React.ReactNode | string>('');
@@ -59,31 +24,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
 
   const theme = useTheme2().v1;
 
-  const frames: FrameView[] = data.series
-    .map((frame) => {
-      const text = findStringField(frame, options.textField);
-      const size = findNumberField(frame, options.sizeField);
-
-      // Color is optional unless explicitly configured. When not configured,
-      // default to using the same field as size.
-      const colorByFieldExplicit = normalize(options.colorByField).length > 0;
-      const color = colorByFieldExplicit ? findNumberField(frame, options.colorByField) : size ?? findNumberField(frame);
-
-      return {
-        name: frame.name,
-        refId: frame.refId,
-        text,
-        size,
-        color,
-        groupBy: frame.fields.find((f: Field) => fieldMatches(f, options.groupByField)),
-        labels:
-          options.labelFields
-            ?.map((name) => frame.fields.find((f: Field) => fieldMatches(f, name)))
-            .filter((f): f is Field<any> => Boolean(f)) ?? [],
-      };
-    })
-    // Only use frames with proper fields.
-    .filter((frame) => frame.text && frame.size && frame.color);
+  const frames: FrameView[] = buildFrameViews(data.series as any, options);
 
   // Ensure that we have the data we need.
   if (frames.length === 0) {
@@ -130,7 +71,7 @@ export const TreemapPanel: React.FC<Props> = ({ options, data, width, height }) 
             const colorValue = node.frame.color!.values.get(node.frame.valueRowIndex!);
 
             const valueText = getFormattedDisplayValue(node.frame.size!.display!(sizeValue));
-            const fillColor = node.frame.color!.display!(colorValue).color ?? theme.colors.primary;
+            const fillColor = node.frame.color!.display!(colorValue).color ?? theme.colors.text;
 
             const labels =
               node.frame.valueRowIndex !== undefined
