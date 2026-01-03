@@ -32,9 +32,9 @@ export const Tooltip = ({ content, children }: Props) => {
 
 const getStyles = (theme: GrafanaTheme2) => ({
   tooltip: css`
-    border-radius: ${theme.v1.border.radius.sm};
-    background-color: ${theme.v1.colors.bg2};
-    padding: ${theme.v1.spacing.sm};
-    box-shadow: 0px 0px 20px ${theme.v1.colors.dropdownShadow};
+    border-radius: ${theme.shape.radius.default};
+    background-color: ${theme.components.tooltip.background};
+    padding: ${theme.spacing(1)};
+    box-shadow: ${theme.shadows.z3};
   `,
 });

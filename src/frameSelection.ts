@@ -23,7 +23,7 @@ export const fieldMatches = (field: Field, wanted?: string): boolean => {
 };
 
 export const findFieldByTypeAndName = <T = unknown>(
-  frame: { fields: Array<Field> },
+  frame: { fields: Field[] },
   type: FieldType,
   wanted?: string
 ): Field<T> | undefined => {
@@ -35,7 +35,7 @@ export const findFieldByTypeAndName = <T = unknown>(
 };
 
 export const buildFrameViews = (
-  series: Array<{ name?: string; refId?: string; fields: Array<Field> }>,
+  series: Array<{ name?: string; refId?: string; fields: Field[] }>,
   options: TreemapOptions
 ): FrameView[] => {
   return series
