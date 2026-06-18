@@ -2,7 +2,7 @@
 
 import React from "react";
 import { StandardEditorProps, FieldType } from "@grafana/data";
-import { MultiSelect, Select } from "@grafana/ui";
+import { Combobox, MultiSelect } from "@grafana/ui";
 
 interface Settings {
   filterByType: FieldType[];
@@ -52,12 +52,12 @@ export const FieldSelectEditor: React.FC<Props> = ({
       );
     } else {
       return (
-        <Select
-          isClearable
-          isLoading={false}
+        <Combobox<string>
+          isClearable={true}
+          loading={false}
           value={value as string | null}
           onChange={(e) => {
-            onChange(e?.value);
+            onChange(e?.value ?? null);
           }}
           options={options}
         />
@@ -65,5 +65,5 @@ export const FieldSelectEditor: React.FC<Props> = ({
     }
   }
 
-  return <Select onChange={() => {}} disabled={true} />;
+  return <Combobox<string> options={[]} value={null} onChange={() => {}} disabled={true} loading={false} />;
 };

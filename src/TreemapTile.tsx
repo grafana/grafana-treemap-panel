@@ -18,7 +18,10 @@ interface Props {
 }
 
 export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick, color, opacity }: Props) => {
-  const theme = useTheme2().v1;
+  const theme = useTheme2();
+  const tileRadius = Number.isFinite(Number.parseFloat(theme.shape.radius.default))
+    ? Number.parseFloat(theme.shape.radius.default)
+    : 0;
 
   const styles = {
     text: css`
@@ -46,7 +49,7 @@ export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick
         <Badge
           key={key}
           className={css`
-            margin-right: ${theme.spacing.xs};
+            margin-right: ${theme.spacing(0.5)};
             &:last-child {
               margin-right: 0;
             }
@@ -70,8 +73,8 @@ export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick
         <rect
           x={x}
           y={y}
-          rx={theme.border.radius.sm}
-          ry={theme.border.radius.sm}
+          rx={tileRadius}
+          ry={tileRadius}
           width={width}
           height={height}
           fill={color}
@@ -82,7 +85,7 @@ export const TreemapTile = ({ x, y, width, height, label, value, labels, onClick
             className={styles.text}
             x={x + margin.left}
             y={y + margin.top}
-            fill={opacity < 1 ? theme.colors.text : theme.colors.panelBg}
+            fill={opacity < 1 ? theme.colors.text.primary : theme.colors.background.primary}
           >
             {label}
           </text>

@@ -42,9 +42,9 @@ export const buildHierarchy = (frames: FrameView[]): TreemapNode => {
   frames.forEach((frame) => {
     Array.from({ length: frame.text!.values.length })
       .map((_, i) => ({
-        label: frame.text!.values.get(i),
-        value: frame.size!.values.get(i),
-        group: frame.groupBy?.values.get(i),
+        label: frame.text!.values[i],
+        value: frame.size!.values[i],
+        group: frame.groupBy?.values[i],
         separator: frame.text!.config.custom.separator,
       }))
       .forEach(({ label, value, group, separator }, index) => {
